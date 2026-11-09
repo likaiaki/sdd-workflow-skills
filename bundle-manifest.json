@@ -1,0 +1,185 @@
+{
+  "version": "0.3.0",
+  "date": "2026-11-06",
+  "purpose": "Portable SDD skill inventory; not runtime configuration.",
+  "skills": [
+    "sdd-workflow",
+    "sdd-triage",
+    "sdd-requirement-validation",
+    "sdd-design",
+    "sdd-test-cases",
+    "sdd-plan",
+    "sdd-implement",
+    "sdd-review-code",
+    "sdd-acceptance"
+  ],
+  "dependencies": [
+    {
+      "name": "grilling",
+      "included": true,
+      "sha256": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef",
+      "edited_in_this_update": false
+    }
+  ],
+  "entry_points": {
+    "development": "sdd-workflow",
+    "independent_qa": "sdd-acceptance"
+  },
+  "development_stop": "Development validated, code reviewed and handed off; independent acceptance pending. Do not start or wait for QA.",
+  "test_code_ownership": {
+    "development": "Each backend/frontend project/test/",
+    "acceptance": "Separate acceptance project specified or identified for the test engineer"
+  },
+  "files": [
+    {
+      "path": "skills/sdd-workflow/SKILL.md",
+      "sha256": "7c79e8ce2e79889fc97e2486bb7e0af13d733eaa9caf0f54d8d00baa06a3c0fa"
+    },
+    {
+      "path": "skills/sdd-workflow/agents/openai.yaml",
+      "sha256": "4a8cd7fe9244833e56d0acdafa961ec6be1f61a1b2483776936d4e559b93093b"
+    },
+    {
+      "path": "skills/sdd-workflow/assets/feature-template.yaml",
+      "sha256": "a2f30c9b1908d99396aa4d77c214bbfe4fd594aa9c10f933bb65bbd63b291ed6"
+    },
+    {
+      "path": "skills/sdd-workflow/references/artifact-storage.md",
+      "sha256": "b909d3e137b050a99a43ec9e636a2853360f92092e21af15932c36c8da0db1e8"
+    },
+    {
+      "path": "skills/sdd-workflow/references/html-delivery.md",
+      "sha256": "dbe76092b5fe46ae3864a211fa7957594785585c7598b3e54d7f7e40825f9cb7"
+    },
+    {
+      "path": "skills/sdd-workflow/references/qa-handoff.md",
+      "sha256": "e101383b41f9e7a763f409032c807a54f5bac86a515fc9859f6a5f36b2b57ec7"
+    },
+    {
+      "path": "skills/sdd-workflow/references/stage-contract.md",
+      "sha256": "fbe2e47b94ab8453defc7cd5b84142338390b9f15d5bb580999349afce30efd2"
+    },
+    {
+      "path": "skills/sdd-triage/SKILL.md",
+      "sha256": "a8b37344051ce5d42405e8a1217024865a4ae5b859323f94c5ad3c489172b5f7"
+    },
+    {
+      "path": "skills/sdd-triage/agents/openai.yaml",
+      "sha256": "ce8db1947c0ee5b6a595cc699d92a4bb816995218c7a5ca3c78a24023e224e8f"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/SKILL.md",
+      "sha256": "06fe251a7836b8638882b24ac534d83543ab13b86bba621ecef641e3f895155f"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/agents/openai.yaml",
+      "sha256": "71a16194be6f817511a68b4732715575a2b2c859d62936d9eccf7e3c495c47ef"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/references/prd-writing-standard.md",
+      "sha256": "83ed8fb2088b93001222ea6bd70d094fb653d973d8daa3c3fe4ebfd1fdc18fdc"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/references/product-checks.md",
+      "sha256": "c66790dc3f264dccb47e5ff2a7afab870f6f7cc5693e1fcda5506690a5ffa307"
+    },
+    {
+      "path": "skills/sdd-design/SKILL.md",
+      "sha256": "c9fcd78e33fbed0ea04db93b5ceb257f1555bf2e71638dd1f3c37a80ecfc0f7e"
+    },
+    {
+      "path": "skills/sdd-design/agents/openai.yaml",
+      "sha256": "9086bb3b9397481713b83c6497c9c328b906dbf187b03edd05ed4d8110e1a516"
+    },
+    {
+      "path": "skills/sdd-design/assets/design-template.html",
+      "sha256": "c8f6fe25269cff511487a196286e0d6cc14da246d701d9a26ce8ac5ca6160b6c"
+    },
+    {
+      "path": "skills/sdd-design/references/design-checks.md",
+      "sha256": "b910bfa130ac229c6da197bbf9864aab35564d3d879e9b610434844a4d81103b"
+    },
+    {
+      "path": "skills/sdd-design/references/design-writing-standard.md",
+      "sha256": "5d6ed796bef103505d03007568e9e085cfa75aa4ae47482ec0a3fe395fdf365a"
+    },
+    {
+      "path": "skills/sdd-design/references/diagram-methods.md",
+      "sha256": "ca204ae89007bd4ddf9cd0a622d0bbc18f139aa226133659ce7c9b61f319e68b"
+    },
+    {
+      "path": "skills/sdd-test-cases/SKILL.md",
+      "sha256": "08926ce5a6aa5bc673f1131edeca7780e06ce1d91c6d49b3a70cdb406f4ec893"
+    },
+    {
+      "path": "skills/sdd-test-cases/agents/openai.yaml",
+      "sha256": "6c6a65f2a7fd05127734ea1ab103daa6f8d9bb3aba988c1067badb8b7926e401"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/case-methods.md",
+      "sha256": "b65dfbefeb60ecb26ec2a1b70afa4db20b85d687ba1cd1949f92ebc0c5a830a7"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/case-writing-standard.md",
+      "sha256": "420839cafe9c5ded4ddf580fe5de5ca7a8ad69365420fa3e531e99ba7ab84bbc"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/test-strategy.md",
+      "sha256": "3790e2f7b18621368e5fbfdef954db0e4acbe16b9916498b36e88930fd02ea70"
+    },
+    {
+      "path": "skills/sdd-plan/SKILL.md",
+      "sha256": "34fcece135da3b97e9398c0574441c746dc8a1cee69abcd428c81076dcd41f7c"
+    },
+    {
+      "path": "skills/sdd-plan/agents/openai.yaml",
+      "sha256": "087e70de98b30fb0c0828097d9a3003dcf8a96d00b36d7ac91c66ba9245a34c7"
+    },
+    {
+      "path": "skills/sdd-implement/SKILL.md",
+      "sha256": "43f796444fe3a1306723a7cd8abfd9911e15c128199b465868047fb10e8fd3e0"
+    },
+    {
+      "path": "skills/sdd-implement/agents/openai.yaml",
+      "sha256": "1abd8b812779961d9296b61f17a4a97a41c19542f0e643451ae40b3e9783d63e"
+    },
+    {
+      "path": "skills/sdd-review-code/SKILL.md",
+      "sha256": "7491ce634fa7c1026eaeccef0d66a5fcf63bb1df0cbad249f8e43e35d4d9c058"
+    },
+    {
+      "path": "skills/sdd-review-code/agents/openai.yaml",
+      "sha256": "8f33bab85da24f57bcc34a88b150219452b24ae89fbc92e609937942cc7d2f2d"
+    },
+    {
+      "path": "skills/sdd-review-code/references/review-checks.md",
+      "sha256": "6cc1de4997bd570d700c3099e8b6b7822d124326858aab97305a1aa150d73c25"
+    },
+    {
+      "path": "skills/sdd-acceptance/SKILL.md",
+      "sha256": "850c8a85f2df5f003d0328b13cd54a471a45feb2c9ca7a95d3aa8a3a7817d0fa"
+    },
+    {
+      "path": "skills/sdd-acceptance/agents/openai.yaml",
+      "sha256": "702a973b4fd704ffc1b70f063b0a2ec2fc9d9f12d72474b5bea3502e7ae21bcd"
+    },
+    {
+      "path": "skills/grilling/SKILL.md",
+      "sha256": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
+    }
+  ],
+  "document_delivery": {
+    "requirements": "HTML",
+    "technical_design": "HTML",
+    "test_case_documents": "HTML",
+    "plans_and_execution_records": "No new format mandate",
+    "simple_bugs": "No mandatory full PRD"
+  },
+  "prd_standard": "skills/sdd-requirement-validation/references/prd-writing-standard.md",
+  "test_case_standard": "skills/sdd-test-cases/references/case-writing-standard.md",
+  "design_standard": "skills/sdd-design/references/design-writing-standard.md",
+  "design_template": "skills/sdd-design/assets/design-template.html",
+  "diagram_methods": "skills/sdd-design/references/diagram-methods.md",
+  "artifact_storage": "skills/sdd-workflow/references/artifact-storage.md",
+  "feature_registry_template": "skills/sdd-workflow/assets/feature-template.yaml"
+}
