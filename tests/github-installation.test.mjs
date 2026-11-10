@@ -43,7 +43,8 @@ test('GitHub CLI custom directories retain the complete Cline and Antigravity sk
         timeout: 30_000,
       });
       const directories = await readdir(destination);
-      assert.deepEqual(directories.sort(), [...manifest.skills, 'grilling'].sort());
+      const expected = [...manifest.skills, ...manifest.dependencies.filter((entry) => entry.included).map((entry) => entry.name)];
+      assert.deepEqual(directories.sort(), expected.sort());
       for (const entry of manifest.files) {
         const relativeFile = entry.path.replace(/^skills\//, '');
         const installed = await readFile(join(destination, relativeFile));

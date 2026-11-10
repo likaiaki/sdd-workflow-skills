@@ -1,6 +1,6 @@
 # 命令安装指南
 
-本仓库采用标准 Agent Skills 目录，整包包含九个 `sdd-*` 技能与 `grilling`。安装使用已有工具完成，支持项目与用户两个范围。
+本仓库采用标准 Agent Skills 目录，整包包含九个 `sdd-*` 技能与 `grilling`、`domain-modeling`。安装使用已有工具完成，支持项目与用户两个范围。
 
 本文命令以 `skills@1.7.6` 和 GitHub CLI `2.98.0` 的实际行为为基线，核对日期为 2026-11-10。安装目录和资源完整性检查与各 Agent 会话运行记录分别判断。
 
@@ -32,7 +32,7 @@ npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex
 npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex claude-code cursor opencode gemini-cli github-copilot --global
 ```
 
-普通终端通常保留安装器的交互提示；安装器检测到 Agent 环境时可能自动采用非交互模式，执行前应核对覆盖范围。普通终端需要明确跳过提示时可追加 `--yes`。`--skill '*'` 必须保留引号，避免终端将星号展开为当前文件列表。该参数安装本仓库全部十个技能目录，包含阶段间相对引用所需的资源。
+普通终端通常保留安装器的交互提示；安装器检测到 Agent 环境时可能自动采用非交互模式，执行前应核对覆盖范围。普通终端需要明确跳过提示时可追加 `--yes`。`--skill '*'` 必须保留引号，避免终端将星号展开为当前文件列表。该参数安装本仓库全部十一个技能目录，包含阶段间相对引用所需的资源。
 
 ### Agent 标识与落盘位置
 
@@ -149,7 +149,7 @@ npm ci --ignore-scripts
 npm test
 ```
 
-测试在临时工程和模拟用户目录中运行真实安装器，核对十个技能、完整资源、相对引用、重复安装、复制／链接、更新和移除边界。实际 Agent 会话的运行能力按各自执行证据判断。检查范围记录在 [verification.md](docs/verification.md)。
+测试在临时工程和模拟用户目录中运行真实安装器，核对十一个技能、完整资源、相对引用、重复安装、复制／链接、更新和移除边界。实际 Agent 会话的运行能力按各自执行证据判断。检查范围记录在 [verification.md](docs/verification.md)。
 
 ## 依据
 

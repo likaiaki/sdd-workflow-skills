@@ -21,4 +21,9 @@ artifacts:
   handoff: handoff.md
 # Store QA artifacts in the identified independent acceptance project.
 # Cross-repository references identify repository, revision and path or an accessible artifact.
+# Optional references only; reuse an equivalent project registry.
+# Each entry may identify source, revision, change_ref and mapping_ref.
+# Keep candidate definitions in their requirement/design draft, not in this index.
+terminology: []
+
 acceptance_reference: null

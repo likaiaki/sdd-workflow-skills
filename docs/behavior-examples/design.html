@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>导出重试 · 技术设计 d1</title><style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#202733;--sub:#515d6d;--line:#dce2eb;--accent:#245bb1;--weak:#edf3ff;--ok:#17683b;--warn:#8a4b00;--bad:#a92525}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;overflow-wrap:anywhere}
+  a{color:var(--accent);text-underline-offset:3px}
+  a:hover{text-decoration-thickness:2px}
+  a:focus-visible,button:focus-visible,summary:focus-visible,.table-wrap:focus-visible{outline:3px solid #b25b00;outline-offset:4px}
+  .wrap{max-width:1060px;margin:auto;padding:28px 24px 72px}
+  #progress{position:fixed;inset:0 auto auto 0;height:3px;background:var(--accent);width:0;z-index:20}
+  .hero{background:linear-gradient(135deg,#164789,#285eae);color:#fff;padding:28px;border-radius:16px;margin-bottom:20px}
+  h1{margin:0 0 8px;font-size:27px;line-height:1.45}
+  .meta{font-size:13px;margin:0 0 16px}
+  .summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .summary-grid .item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:12px 14px;border-radius:10px}
+  .item b{display:block;font-size:12px;margin-bottom:4px}
+  .item p{font-size:14px;margin:0}
+  .template-note{border:1px solid #d9b768;background:#fff8e6;color:#684100;border-radius:10px;padding:12px 16px;margin:0 0 20px}
+  .toc,.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:24px;margin:0 0 20px}
+  .toc h2{font-size:15px;margin:0 0 10px}
+  .toc ol{columns:2;column-gap:32px;padding-left:22px;margin:0}
+  .toc li{break-inside:avoid;margin:3px 0}
+  .toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 0}
+  [hidden]{display:none!important}
+  button{font:inherit;font-size:13px;padding:7px 13px;min-height:38px;color:var(--accent);background:#fff;border:1px solid #b9c9e4;border-radius:8px;cursor:pointer}
+  button:hover{background:var(--weak)}
+  .card,h3,[id]{scroll-margin-top:22px}
+  h2{font-size:21px;line-height:1.5;margin:0 0 6px}
+  h3{font-size:16px;line-height:1.6;margin:23px 0 8px}
+  .lead,.hint{color:var(--sub);font-size:13px}
+  .lead{margin:0 0 16px}
+  p{margin:10px 0}
+  .badge{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);background:var(--weak);padding:2px 8px;border-radius:12px;vertical-align:middle}
+  .callout{border-left:4px solid var(--accent);background:#f1f5fc;padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout.warn{border-color:var(--warn);background:#fff8e9}
+  .callout.ok{border-color:var(--ok);background:#eff8f2}
+  .callout strong{display:block;margin-bottom:4px}
+  .table-wrap{overflow-x:auto;max-width:100%;margin:12px 0;border:1px solid var(--line);border-radius:8px}
+  table{border-collapse:collapse;width:100%;min-width:700px;font-size:13px}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  th{background:#f0f3f8;color:#364459;font-weight:650}
+  tr:last-child td{border-bottom:0}
+  tr>*:last-child{border-right:0}
+  caption{text-align:left;font-weight:600;padding:10px 12px;background:#fafbfc}
+  td ol{margin:0;padding-left:20px}
+  .fill{color:#4c5a6f}
+  .diagram{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:15px;margin:14px 0}
+  .diagram-scroll{overflow-x:auto}
+  .diagram svg{display:block;width:100%;min-width:640px;height:auto}
+  figcaption{font-size:12px;color:var(--sub);margin-top:8px}
+  .diagram text{font-family:inherit;fill:#26364d}
+  details{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#fafbfd}
+  details[open]{background:#fff}
+  summary{font-size:14px;font-weight:600;padding:13px 16px;cursor:pointer}
+  summary::marker{color:var(--accent)}
+  details .inner{padding:0 16px 15px}
+  .reading-label{font-size:12px;color:var(--sub);margin-bottom:12px}
+  .status{font-weight:600;color:var(--warn)}
+  code{font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f0f3f8;padding:1px 4px;border-radius:4px;overflow-wrap:anywhere}
+  .footer{font-size:12px;color:var(--sub);text-align:center;margin-top:26px}
+  @media(max-width:680px){
+    .wrap{padding:16px 12px 48px}.hero,.card,.toc{padding:20px 16px}
+    h1{font-size:23px}h2{font-size:19px}.summary-grid{grid-template-columns:1fr}
+    .toc ol{columns:1}.toolbar button{flex:1 1 auto}.diagram{padding:10px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @page{size:A4;margin:14mm 12mm}
+  @media print{
+    html{scroll-behavior:auto}
+    body{background:#fff;color:#111;font-size:10pt;line-height:1.6}
+    .wrap{max-width:none;padding:0;margin:0}
+    #progress,.toolbar,.noscript-note{display:none!important}
+    .hero{background:#fff!important;color:#111!important;border:1px solid #777;border-radius:0;padding:14px}
+    .hero *{color:#111!important}
+    .summary-grid .item{background:#fff;border:1px solid #aaa}
+    .card,.toc{border:0;border-radius:0;box-shadow:none;padding:10px 0;margin:0 0 12px}
+    .template-note{background:#fff;color:#111;border:1px solid #777}
+    .table-wrap,.diagram-scroll{overflow:visible;border-radius:0}
+    table{min-width:0!important;table-layout:fixed;font-size:8.5pt}
+    th,td{padding:6px;overflow-wrap:anywhere}
+    thead{display:table-header-group}
+    tr{break-inside:avoid}
+    h2,h3,summary{break-after:avoid}
+    .diagram{background:#fff;border-radius:0;padding:8px;break-inside:avoid}
+    .diagram svg{min-width:0}
+    details{border-color:#aaa;background:#fff!important;break-inside:auto}
+    details .inner{padding:0 12px 12px}
+    .badge{border:1px solid #aaa;background:#fff;color:#111}
+    .callout,.callout.warn,.callout.ok{background:#fff;color:#111}
+    a{color:#111}.footer{text-align:left}
+  }
+</style></head>
+<body><div id="progress" aria-hidden="true"></div><main class="wrap">
+<header class="hero" id="top"><h1>导出重试 · 技术设计</h1><p class="meta">d1 · 2026-11-10 · 作者：Codex · 草稿：关键证据待补，设计未确认</p><div class="summary-grid"><div class="item"><b>做什么</b><p>失败任务保留原 ID，重试追加有新 ID 的执行尝试。</p></div><div class="item"><b>关键选择</b><p>沿用已有函数；保留历史技术名、旧路径及“我的导出”标题。</p></div><div class="item"><b>重要限制</b><p>受理只到排队；ID 唯一性、完整状态与 HTTP 链路证据缺失，上线时间未定。</p></div></div></header>
+<nav class="toc" aria-label="文档目录"><h2>阅读目录</h2><p class="reading-label">第 1–4 节解释方案；研发与测试继续核对契约、验证与未决事项。</p><ol><li><a href="#summary">方案摘要</a></li><li><a href="#basis">依据与范围</a></li><li><a href="#architecture">现状与目标</a></li><li><a href="#flows">流程与状态</a></li><li><a href="#decisions">关键决策</a></li><li><a href="#contracts">详细契约</a></li><li><a href="#impact">影响与依赖</a></li><li><a href="#verification">验证安排</a></li><li><a href="#release">发布与恢复</a></li><li><a href="#records">未决与检查记录</a></li></ol><div class="toolbar" id="toolbar" hidden><button type="button" id="expand-all">展开技术细节</button><button type="button" id="collapse-all">收起技术细节</button><button type="button" id="print-document">打印／另存 PDF</button></div><noscript><p class="hint noscript-note">无脚本时技术细节默认展开，目录与原生折叠仍可用。</p></noscript></nav>
+<section class="card" id="summary"><h2>1. 方案摘要</h2><p>用户发起的一次导出工作称为<strong>导出任务</strong>，该工作的每轮执行称为<strong>执行尝试</strong>。失败任务重试时保留任务 ID，增加一次有独立新 ID 的尝试；同一个任务可以有多次尝试。定义沿用 <a href="../../tests/behavior/fixtures/design/specs/terms.html#export-task">报表领域词典 r1</a>，本稿只补技术映射，不另建词典。</p><p>现有 <code>backend/export.py</code> 已有失败检查、追加尝试、任务回到排队的局部逻辑。建议复用该逻辑：<code>ExportJob</code> 对应导出任务，<code>attempts</code> 中一项字典对应执行尝试。业务名称统一不要求修改历史类名或接口路径。</p><div class="callout warn"><strong>完成边界</strong>工程只有内存对象与同步函数，未提供路由注册、调用方、执行器、持久化或页面源码。局部设计已形成；不能由此证明新 ID、完整状态、真实接口与并发保证，整体保持草稿。普通非失败任务被函数拒绝；受理只代表排队，响应丢失不能据此认定未生效。本轮只交付设计。</div></section>
+<section class="card" id="basis"><h2>2. 依据与范围</h2><p>项目根为当前隔离工程，主模块为报表导出。依 <a href="../../tests/behavior/fixtures/design/AGENTS.md">AGENTS.md</a>，需求位置为 <a href="../../tests/behavior/fixtures/design/requirements.html">requirements.html</a>，设计固定为本文件。无独立特性编号、登记或目标发布版本，本稿在此登记定位信息，不从外部仓库、日期推断发布承诺。</p><div class="table-wrap" tabindex="0" role="region" aria-label="来源与基线"><table><thead><tr><th scope="col">来源</th><th scope="col">实际内容与状态</th><th scope="col">证据限制</th></tr></thead><tbody><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html">需求 r1</a></td><td>原文记录“本隔离试用的用户需求确认记录：r1 已确认”。有效项为 <a href="../../tests/behavior/fixtures/design/requirements.html#REQ-1">REQ-1</a>、<a href="../../tests/behavior/fixtures/design/requirements.html#REQ-2">REQ-2</a>、<a href="../../tests/behavior/fixtures/design/requirements.html#AC-1">AC-1</a>。</td><td>按任务指定确认记录接续；未给姓名与时间，不补写。需求确认不等于设计 d1 确认。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/specs/terms.html">词典 r1</a></td><td>权威业务定义；无本次新概念或已确认增量。</td><td>技术映射归本稿，摘录不成为第二份可编辑词典。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/backend/export.py">backend/export.py</a> 第 1–13 行</td><td>真实类与函数；末行仅为历史路由注释。</td><td>逐行静态阅读及 AST 解析，非运行／生产证据。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/draft-notes.md">讨论草稿</a></td><td>“导出作业”“执行实例”未整理，不能覆盖 r1。</td><td>导出作业按词典为历史别名；执行实例不提升为已确认别名。</td></tr></tbody></table></div><p>本次沿用现有重试结构并说明名称与目标对应。不新建任务替代旧任务，不新选存储或队列，不引入独立尝试服务，不改应用代码，不做产品 UI／真实环境测试。</p>
+<h3 id="domain-mapping">2.1 业务与技术名称映射</h3><div class="table-wrap" tabindex="0" role="region" aria-label="业务技术映射"><table><thead><tr><th scope="col">规范概念／来源</th><th scope="col">职责／真实代码</th><th scope="col">接口、存储与展示</th><th scope="col">现状和目标</th></tr></thead><tbody><tr><td><a href="../../tests/behavior/fixtures/design/specs/terms.html#export-task">导出任务 · export-task · r1</a></td><td>ExportJob；id 是任务 ID，status 是任务状态，attempts 收纳尝试。</td><td>/api/export_jobs 是历史兼容路径；仅见 dataclass 内存对象，未见数据库表。“我的导出”为 AC-1 保留标题。</td><td>正文使用规范名，技术旧名保留；任务 ID 不等于尝试 ID。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/specs/terms.html#attempt">执行尝试 · attempt · r1</a></td><td>attempts 的一项字典，含 id、status；attempt_id 入参写新项 id。</td><td>未见独立类、路由或存储。</td><td>目标为每轮独立新 ID；当前函数不生成或检查唯一性。</td></tr></tbody></table></div>
+<h3 id="correctness">2.2 正确性约束</h3><div class="table-wrap" tabindex="0" role="region" aria-label="正确性约束"><table><thead><tr><th scope="col">约束及来源</th><th scope="col">范围／窗口</th><th scope="col">保证机制与缺口</th><th scope="col">异常、并发与验证</th></tr></thead><tbody><tr id="INV-1"><td>INV-1：保留任务 ID；REQ-1</td><td>同一失败对象，一次普通同步调用前后。</td><td>retry 不改 job.id，返回原对象。</td><td>静态已核对；后续真实函数测试 ID 与对象身份，不能证明跨进程归属。</td></tr><tr id="INV-2"><td>INV-2：新增尝试及新 ID；REQ-1</td><td>每次合法重试，保留已有历史。</td><td>append 新增一项且不改旧项；新 ID 来自调用方，唯一性未受函数保证。</td><td>重复 ID 仍可被追加，Q-1 阻塞完整保证；验证历史不变及重复输入的实际行为。</td></tr><tr id="INV-3"><td>INV-3：仅失败任务可重试；已有函数契约</td><td>入口 status 为 failed；普通串行调用。</td><td>非 failed 在 append 前抛 ValueError；接受后任务、新项均 queued。</td><td>拒绝时无该函数业务写入；校验与写入非一个原子整体，图 F-3 说明竞争缺口。</td></tr><tr id="INV-4"><td>INV-4：任务、尝试分别区分四态；REQ-2</td><td>两类对象各自的排队、执行、成功、失败语义。</td><td>各有 status；不新定任务永远等于最新尝试的聚合规则。</td><td>仅明确 queued 和任务 failed；Q-2 待查完整编码与转换，不从 str 推出四态校验。</td></tr><tr id="INV-5"><td>INV-5：路径及标题兼容；AC-1</td><td>历史接口与页面使用方。</td><td>设计不改旧路径或“我的导出”。</td><td>实际路由、页面缺失，Q-3 待查；后续运行验证，不把路径搜索当 HTTP 通过。</td></tr></tbody></table></div>
+<h3 id="visual-plan">2.3 选图安排</h3><p>F-1 用概念关系图说明任务和多次尝试（REQ-1）；F-2 用流程图说明真实重试分支（INV-1 至 INV-3）；F-3 用时序交错图说明竞争缺口。四态用表格列出证据；缺执行器时不画完整生命周期。没有存储／部署变化，不创造数据库表或新节点。</p></section>
+<section class="card" id="architecture"><h2>3. 现状及目标架构</h2><figure class="diagram" id="F-1"><div class="diagram-scroll"><svg viewBox="0 0 880 245" role="img" aria-labelledby="f1title f1desc"><title id="f1title">F-1：任务与尝试的归属</title><desc id="f1desc">一个 ExportJob 任务的 attempts 列表容纳多次执行尝试。重试保留任务，追加排队尝试。这不是数据库表图。</desc><defs><marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#40618e"/></marker></defs><rect x="20" y="55" width="300" height="125" rx="10" fill="#edf3ff" stroke="#4f79b5"/><text x="170" y="87" text-anchor="middle" font-size="18">导出任务（ExportJob）</text><text x="170" y="119" text-anchor="middle" font-size="14">任务 ID 不变 · 独立 status</text><text x="170" y="150" text-anchor="middle" font-size="14">attempts 收纳历史</text><path d="M320 118H485" stroke="#40618e" stroke-width="2" marker-end="url(#a1)"/><text x="405" y="96" text-anchor="middle" font-size="14">包含 0..多次</text><rect x="500" y="15" width="350" height="85" rx="10" fill="#fff" stroke="#9baec9"/><text x="675" y="50" text-anchor="middle" font-size="17">已有执行尝试</text><text x="675" y="79" text-anchor="middle" font-size="14">历史记录保持不变</text><rect x="500" y="140" width="350" height="85" rx="10" fill="#eff8f2" stroke="#5c9672"/><text x="675" y="175" text-anchor="middle" font-size="17">本次新增的执行尝试</text><text x="675" y="204" text-anchor="middle" font-size="14">独立尝试 ID · status = queued</text><path d="M480 118V58H495M480 118V183H495" fill="none" stroke="#40618e"/></svg></div><figcaption>词典与内存结构的关系示意，非数据库表。绿色仅表示新增，不表示导出成功。0..多次描述 list 能力；初次任务是否自带第一次尝试未给出。</figcaption></figure><p><code>ExportJob</code> 是 dataclass，默认 status=queued、attempts 为独立空列表。<code>retry</code> 同步修改并返回传入对象，未见调用者。目标是沿用结构与真实重试机制，不新增组件。ID 生成、持久化、实际执行与用户归属不能从此对象推出。历史 HTTP 路径仅有注释，前端仅有需求标题约束，均须区分目标与已实现现状。</p></section>
+<section class="card" id="flows"><h2>4. 核心流程与状态</h2><figure class="diagram" id="F-2"><div class="diagram-scroll"><svg viewBox="0 0 880 295" role="img" aria-labelledby="f2title f2desc"><title id="f2title">F-2：一次串行重试的真实流程</title><desc id="f2desc">传入任务与尝试 ID。不是 failed 则抛 ValueError 且无列表写入；否则追加 queued 尝试，任务设为 queued，返回原对象。顺序不等于事务。</desc><defs><marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#40618e"/></marker></defs><g fill="#fff" stroke="#9baec9"><rect x="15" y="80" width="175" height="80" rx="8"/><rect x="245" y="80" width="180" height="80" rx="8"/><rect x="490" y="80" width="165" height="80" rx="8"/><rect x="710" y="80" width="155" height="80" rx="8"/><rect x="245" y="215" width="240" height="55" rx="8"/></g><g font-size="14" text-anchor="middle"><text x="102" y="111">传入原任务</text><text x="102" y="140">与 attempt_id</text><text x="335" y="111">任务 status</text><text x="335" y="140">是否为 failed？</text><text x="572" y="111">追加执行尝试</text><text x="572" y="140">新项 queued</text><text x="787" y="111">任务改 queued</text><text x="787" y="140">返回原对象</text><text x="365" y="248">ValueError · 无列表写入</text></g><g stroke="#40618e" stroke-width="2" fill="none" marker-end="url(#a2)"><path d="M190 120H240"/><path d="M425 120H485"/><path d="M655 120H705"/><path d="M335 160V210"/></g><text x="455" y="101" text-anchor="middle" font-size="13">是</text><text x="350" y="193" font-size="13">否</text><text x="560" y="32" text-anchor="middle" font-size="14">受理并排队，不等于导出成功</text></svg></div><figcaption>实线为源码的普通调用先后，不是原子事务。前提为普通 ExportJob 和可追加的 list。生成新 ID、执行、结果查询不在函数中。</figcaption></figure>
+<div class="table-wrap" tabindex="0" role="region" aria-label="状态映射"><table><thead><tr><th scope="col">业务状态（REQ-2）</th><th scope="col">任务实际编码</th><th scope="col">尝试实际编码</th><th scope="col">本次安排</th></tr></thead><tbody><tr><td>排队</td><td>默认及重试后 queued</td><td>新项 queued</td><td>保留各自状态；受理不是成功。</td></tr><tr><td>执行</td><td>未给</td><td>未给</td><td>保留业务语义，Q-2 查既有编码与转移，不新定英文值。</td></tr><tr><td>成功</td><td>未给</td><td>未给</td><td>同上；返回 job 不是导出成功。</td></tr><tr><td>失败</td><td>failed 是重试条件</td><td>未见设置</td><td>失败任务可回排队，不覆盖历史尝试。</td></tr></tbody></table></div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="异常恢复"><table><thead><tr><th scope="col">场景</th><th scope="col">结果及副作用</th><th scope="col">恢复／限制</th></tr></thead><tbody><tr><td>非 failed</td><td>ValueError("only failed tasks can retry")，本函数未改对象。</td><td>不编造 HTTP 400／409 等映射。</td></tr><tr><td>串行接受</td><td>ID 不变，追加一项 queued，任务 queued，历史不变。</td><td>新 ID 由调用方保证的证据缺失。</td></tr><tr><td>立即串行重复</td><td>同一对象已 queued，第二次拒绝。</td><td>这不是请求 ID 去重；以后再 failed 仍可追加。</td></tr><tr><td>重复尝试 ID</td><td>任务 failed 时仍可追加相同 ID。</td><td>Q-1 未解，不宣称已满足新 ID 保证。</td></tr><tr><td>并发／不同副本</td><td>可能同时通过 failed 检查。</td><td>无共同原子边界，不承诺只受理一次；F-3。</td></tr><tr><td>追加后中断／响应丢失</td><td>无撤销逻辑，调用方可能不知已否接受。</td><td>超时不等于未生效；不盲重试或删尝试，核实入口待 Q-3。</td></tr><tr><td>取消、文件或外部执行失败</td><td>本函数无取消入口、文件、连接或调度动作。</td><td>不推断执行器清理与补偿，不扩建基础设施。</td></tr></tbody></table></div></section>
+<section class="card" id="decisions"><h2>5. 关键决策</h2><div class="table-wrap" tabindex="0" role="region" aria-label="关键决策"><table><thead><tr><th scope="col">决策</th><th scope="col">选择与理由</th><th scope="col">状态、代价与重审</th></tr></thead><tbody><tr id="DEC-1"><td>DEC-1：规范名与技术名分开映射</td><td>正文用导出任务／执行尝试，保留 ExportJob、attempts 和旧路径；遵循词典 r1 与 AC-1。</td><td>业务名与兼容约束已确认，技术映射待设计确认；代价是旧技术名需持续解释。另提兼容迁移时才重审。</td></tr><tr id="DEC-2"><td>DEC-2：复用局部重试</td><td>保留 failed 检查、append、任务 queued。新建任务替代旧任务违背 REQ-1，因此不列为备选。</td><td>AI 技术建议，无代码变更。新队列、数据库或独立尝试服务超出本次范围，不为凑数做选型对比。</td></tr><tr id="DEC-3"><td>DEC-3：未知不变成新规则</td><td>状态、ID 和 HTTP 契约先补现行证据，不自选分布式锁、幂等键或错误码。</td><td>待查见 Q-1 至 Q-3；只有证实需要新业务规则，才列影响与选项请用户决定。</td></tr></tbody></table></div></section>
+<section class="card" id="contracts"><h2>6. 详细契约</h2><details data-technical open><summary>6.1 函数与字段</summary><div class="inner"><h3 id="contract-fields">已核实的 Python 边界</h3><p><code>retry(job, attempt_id)</code> 是唯一实际函数入口，未见调用者。<code>POST /api/export_jobs/{id}/retry</code> 仅为历史路由注释及兼容目标，不能当注册证据。</p><div class="table-wrap" tabindex="0" role="region" aria-label="字段契约"><table><thead><tr><th scope="col">字段／方向</th><th scope="col">实际契约</th><th scope="col">限制与未知</th></tr></thead><tbody><tr><td>ExportJob.id</td><td>str 注解，任务 ID；retry 不改。</td><td>未校验类型、空值、归属。</td></tr><tr><td>ExportJob.status</td><td>str 注解，默认 queued，重试比较 failed。</td><td>无四态枚举校验；Q-2。</td></tr><tr><td>ExportJob.attempts</td><td>默认独立 list，追加字典有 id、status。</td><td>旧项不改；不是另一个任务列表。</td></tr><tr><td>attempt_id：入参</td><td>无参数类型注解，原样写入新项 id。</td><td>目标为新 ID；格式、生成者、唯一性范围未给。</td></tr><tr><td>返回／异常</td><td>返回同一 job；非 failed 抛 ValueError。</td><td>无 HTTP JSON schema、状态码或认证约定，不自创。</td></tr></tbody></table></div></div></details>
+<details data-technical open><summary>6.2 竞争缺口：检查与修改无共同原子边界</summary><div class="inner"><figure class="diagram" id="F-3"><div class="diagram-scroll"><svg viewBox="0 0 880 325" role="img" aria-labelledby="f3title f3desc"><title id="f3title">F-3：未被现有证据排除的调用交错</title><desc id="f3desc">调用 A 和 B 都先读到 failed，再分别追加尝试并写 queued。没有覆盖检查与修改的共同原子边界。这是风险推演，不是运行结果。</desc><g font-size="16" text-anchor="middle"><text x="185" y="30">调用 A</text><text x="630" y="30">调用 B</text></g><path d="M185 45V285M630 45V285" stroke="#9baec9" stroke-dasharray="5 5"/><g fill="#fff" stroke="#9baec9"><rect x="45" y="65" width="280" height="50" rx="8"/><rect x="490" y="125" width="280" height="50" rx="8"/><rect x="45" y="185" width="280" height="50" rx="8"/><rect x="490" y="245" width="280" height="50" rx="8"/></g><g font-size="14" text-anchor="middle"><text x="185" y="95">读到任务 failed</text><text x="630" y="155">也读到任务 failed</text><text x="185" y="215">追加尝试 A；任务 queued</text><text x="630" y="275">追加尝试 B；任务 queued</text></g><text x="440" y="316" text-anchor="middle" font-size="13">时间向下；风险示意，未作为运行结果</text></svg></div><figcaption>可能交错的共享对象调用；不同进程／副本还需真实存储语义。无锁、事务或去重证据，不画不存在的保证。是否要求同时仅受理一次，先核实既有契约（Q-1）。</figcaption></figure></div></details>
+<details data-technical open><summary>6.3 数据、资源、安全与运行</summary><div class="inner"><div class="table-wrap" tabindex="0" role="region" aria-label="横切约束"><table><thead><tr><th scope="col">方面</th><th scope="col">现状及设计边界</th><th scope="col">待核对</th></tr></thead><tbody><tr><td>数据一致性</td><td>内存 append 与状态赋值分开，无事务／持久化证据；本轮无 schema 或存储选择。</td><td>不将函数称为分布式原子受理；Q-1。</td></tr><tr><td>资源生命周期</td><td>仅创建尝试字典交给 job.attempts，不删历史；无连接、文件或后台任务由它创建。</td><td>记录保留、清理及执行资源责任未给，不编期限。</td></tr><tr><td>身份权限</td><td>无用户、所有者或权限代码。</td><td>真实路由暴露前核实身份与访问限制，含拒绝无业务写入；Q-3。</td></tr><tr><td>性能</td><td>沿用列表，无已确认容量指标、负载或扩容变化。</td><td>不编数字、不新增压测；规模相关结论需要时另验。</td></tr><tr><td>可观测性</td><td>未见日志／指标。建议在已有入口关联任务 ID、尝试 ID、受理／拒绝，避免记录导出内容。</td><td>建议不等于已部署，不发明监控平台或阈值。</td></tr><tr><td>外部动作恢复</td><td>受理不证明导出启动，超时不等于未接受。</td><td>核实现行查询与执行机制，不自动补偿或再次导出。</td></tr></tbody></table></div></div></details></section>
+<section class="card" id="impact"><h2>7. 影响与依赖</h2><p>后端沿用 ExportJob、retry 和嵌入列表。先补调用链、ID、状态及入口资料，再判断范围内实现差距；本稿不进入编码。接口使用方保留旧路径；“我的导出”标题按 AC-1 保留，实际页面呈现待独立验收。</p><p>配置、构建、发布线与负责人未给，不承诺迁移或工期。词典 <code>specs/terms.html r1</code> 继续权威，本次无概念变化，不新增 GLOSSARY.md 或复制词典。技术映射留本稿；事实补齐或实际实施后，才按真实状态同步对应的现行模块知识。</p></section>
+<section class="card" id="verification"><h2>8. 验证安排</h2><p>下列为后续方法，不是已执行测试。工程没有现有用例编号或测试配置，不虚构既有编号与执行命令。</p><div class="table-wrap" tabindex="0" role="region" aria-label="需求设计验证映射"><table><thead><tr><th scope="col">需求／约束</th><th scope="col">验证与断言</th><th scope="col">岗位／阶段／工程</th><th scope="col">真实与替身边界</th></tr></thead><tbody><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html#REQ-1">REQ-1</a>；INV-1、INV-2</td><td>失败任务带历史调用真实 retry：原对象及任务 ID 不变，只追加一项 queued，旧项不变；用新 ID 与重复 ID 暴露保证边界。</td><td>研发，后续开发期，拟归 backend/test/；先配置最小发现入口，本轮不编写或执行。</td><td>真实 ExportJob、retry、list，无外部依赖需替换；不能证明生成器、存储或 HTTP。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html#REQ-1">REQ-1</a>；INV-3</td><td>非 failed 拒绝且对象未变；接受后串行重复拒绝；并发协议确定后再给竞争断言。</td><td>研发，开发期隔离单元／功能测试，backend/test/。</td><td>保留真实失败守卫，不 mock 成恒定成功。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html#REQ-2">REQ-2</a>；INV-4</td><td>分别核对任务与尝试四态编码及真实转移；受理不等于成功，旧失败尝试不被覆盖。</td><td>研发，Q-2 补齐后，backend/test/；当前未验证。</td><td>保留状态组件，按核实契约替换外部执行依赖；不能只设置四个字面量就称完整流转。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html#AC-1">AC-1</a>；INV-5</td><td>真实路由进程内请求：旧路径可达、协议与错误兼容、权限拒绝后无业务写入。</td><td>研发，开发期接口／契约测试，backend/test/；前提 Q-3 与启动配置。</td><td>保留真实路由及权限，替换外部设施；路径检索不能证明 HTTP。</td></tr><tr><td><a href="../../tests/behavior/fixtures/design/requirements.html#REQ-1">REQ-1</a>、<a href="../../tests/behavior/fixtures/design/requirements.html#REQ-2">REQ-2</a>、<a href="../../tests/behavior/fixtures/design/requirements.html#AC-1">AC-1</a></td><td>页面标题、失败重试到排队及最终结果、任务尝试归属，真实存储并发与权限。</td><td>测试工程师，研发交付后独立发起；独立验收工程路径未指定，不猜测；CI／共享环境待定。</td><td>真实依赖、产品 UI、部署 E2E 当前全部未执行；不要求个人电脑复刻线上。</td></tr></tbody></table></div><div class="callout"><strong>证据与阶段分开</strong>当前仅文档／源码静态检查。验证计划不等于执行通过；研发在开发验证、审核与提测完成后结束，不自动触发独立验收。</div></section>
+<section class="card" id="release"><h2>9. 发布与恢复</h2><p>本次只有 design.html，无应用、配置、数据或外部动作变更，没有需要执行的发布或应用回滚。上线时间、构建与负责人未定。</p><p>Q-1 至 Q-3 补齐关键证据并更新设计、获得当前版本真实用户确认后，再交契约用例与计划。需求 r1 的有效确认继续沿用。未来若实现破坏任务 ID、新尝试身份、旧路径或标题，应保留证据并阻止该变更发布；已发生问题先核实业务和存储后态。撤回代码不自动撤销历史尝试或外部导出，不直接删除记录或再次执行。不假设已存在开关、灰度设施或数据迁移。</p></section>
+<section class="card" id="records"><h2>10. 未决事项及变更记录</h2><div class="table-wrap" tabindex="0" role="region" aria-label="未决事项"><table><thead><tr><th scope="col">问题／类型</th><th scope="col">已知与缺口</th><th scope="col">影响与下一步</th><th scope="col">实际决定</th></tr></thead><tbody><tr id="Q-1"><td>Q-1：事实待查，必要时再提业务决策</td><td>attempt_id 来自调用方；生成者、唯一性范围、重复与并发契约缺失。</td><td>阻塞 INV-2 完整保证。先补现行调用链；若无既有规则，再请用户选择重复／并发复用、拒绝或分别成为尝试的语义，不先选新基础设施。</td><td>未解决；未替用户确认。</td></tr><tr id="Q-2"><td>Q-2：事实待查</td><td>四态业务语义已确认；代码只有 queued 和任务 failed。</td><td>阻塞完整状态契约。补既有执行器、编码、转移及任务尝试关系；不自造英文码或聚合规则。</td><td>未解决；REQ-2 不变。</td></tr><tr id="Q-3"><td>Q-3：事实待查</td><td>路径仅注释，标题仅需求；无真实路由、消费方、权限、HTTP 响应或结果核实入口。</td><td>阻塞实际 HTTP、安全及兼容结论；补现行资料，不要求本机部署完整系统。</td><td>未解决；AC-1 继续保留路径及标题。</td></tr></tbody></table></div>
+<h3 id="checks">10.1 实际检查及独立性</h3><div class="table-wrap" tabindex="0" role="region" aria-label="实际检查记录"><table><thead><tr><th scope="col">检查项</th><th scope="col">方式与发现</th><th scope="col">实际状态与限制</th></tr></thead><tbody><tr><td>来源、范围与术语</td><td>阅读全部 5 个工程输入，定位 r1 确认与 REQ-1、REQ-2、AC-1；词典、代码及映射交叉核对。</td><td>作者自查，无独立复核。草稿词不覆盖权威词典；需求确认不等于设计确认。</td></tr><tr><td>源码语法及保证</td><td>逐行静态阅读并 AST 解析 export.py；只有 ExportJob、retry，无 ID 校验、原子边界或完整状态链。</td><td>语法解析通过；未执行应用，不证明生产事实。</td></tr><tr><td>图文与追溯</td><td>F-1 为归属，F-2 为普通调用分支，F-3 为未排除的竞争推演；与 INV、状态表、契约对照。</td><td>作者内容核对；Q-1 至 Q-3 未解决，保持草稿。</td></tr><tr><td>HTML 结构</td><td>Python HTMLParser 检查 UTF-8、标签闭合、唯一 ID、站内与相对文件锚点、表格、SVG 标题／说明、无远程资源或模板占位。</td><td>已通过：43 个唯一 ID、30 个链接、12 张表、3 张 SVG、4 个技术折叠区；输入 5 文件指纹未变。结构不证明业务正确。</td></tr><tr><td>展开、锚点与打印</td><td>实际脚本语法与最小 DOM 替身行为检查；原生 details、自动展开、打印前全展开及打印后恢复。静态核对宽表与打印样式。</td><td>脚本语法、展开／收起、锚点展开、打印展开／恢复及打印按钮替身检查均通过。文档浏览器视觉和实际打印未执行，排版与分页未验证。</td></tr><tr><td>产品验证</td><td>未执行业务单元、接口请求、产品 UI、真实环境或 E2E。</td><td>全部未验证，第 8 节仅后续安排。</td></tr></tbody></table></div>
+<details data-technical open><summary>10.2 输入指纹（SHA-256）</summary><div class="inner"><p>来源均相对本工程根；指纹对应本轮实际读取内容，不用外部 Git HEAD 代替此未提交快照。</p><div class="table-wrap" tabindex="0" role="region" aria-label="输入指纹"><table><thead><tr><th scope="col">文件</th><th scope="col">SHA-256</th></tr></thead><tbody><tr><td>AGENTS.md</td><td><code>e2897cd66c80942b8250c50a66a28f670b8dec1b60b0415d6b1edcf92f72dd2e</code></td></tr><tr><td>requirements.html</td><td><code>956e7a564ec54bfeae70c6f883a60fe8b4d82228495f3dc9b210d8fbd454fd91</code></td></tr><tr><td>specs/terms.html</td><td><code>e399516ad8afa92d3508e9493328075c5bb7ce4e21c6785519d8f0c169c34a52</code></td></tr><tr><td>backend/export.py</td><td><code>043c32d8fc36f61dd731a704bbda08490c6fd5f754c8dbff972fa0608d68f903</code></td></tr><tr><td>draft-notes.md</td><td><code>c7875d4c4c6de7802a9e84e619224b814833251d0e5b5ce5086ed7e4acbbd0d4</code></td></tr></tbody></table></div></div></details>
+<h3>10.3 变更及确认</h3><p><strong>d1 · 2026-11-10：</strong>首次形成导出重试技术设计，关联需求 r1 的 REQ-1、REQ-2、AC-1 及词典 r1；补技术映射、局部流程、竞争缺口与验证安排。未改变输入、词典或应用实现。</p><div class="callout warn"><strong>当前确认状态</strong>本稿是草稿，未获真实用户对 d1 的确认。Q-1 至 Q-3 补齐后只修订受影响部分，再判断是否满足“设计就绪，待确认”。本次不提前进入实施或验收。</div></section>
+<p class="footer">导出重试 · d1 · 单文件 HTML · 无外部资源依赖 · <a href="#top">返回顶部</a></p>
+</main><script>
+(function () {
+  "use strict";
+  var panels = Array.from(document.querySelectorAll("details[data-technical]"));
+  var bar = document.getElementById("progress");
+  var printState = null;
+  document.getElementById("toolbar").hidden = false;
+  panels.forEach(function (panel) { panel.open = false; });
+  document.getElementById("expand-all").addEventListener("click", function () {
+    panels.forEach(function (panel) { panel.open = true; });
+  });
+  document.getElementById("collapse-all").addEventListener("click", function () {
+    panels.forEach(function (panel) { panel.open = false; });
+  });
+  document.getElementById("print-document").addEventListener("click", function () { window.print(); });
+  function revealHash() {
+    var id;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (error) { return; }
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    var node = target.parentElement;
+    while (node) {
+      if (node.tagName === "DETAILS") node.open = true;
+      node = node.parentElement;
+    }
+    window.requestAnimationFrame(function () { target.scrollIntoView({ block: "start" }); });
+  }
+  function preparePrint() {
+    if (printState !== null) return;
+    printState = panels.map(function (panel) { return panel.open; });
+    panels.forEach(function (panel) { panel.open = true; });
+  }
+  function restorePrint() {
+    if (printState === null) return;
+    panels.forEach(function (panel, index) { panel.open = printState[index]; });
+    printState = null;
+  }
+  var scrollQueued = false;
+  function updateProgress() {
+    scrollQueued = false;
+    var root = document.documentElement;
+    var range = root.scrollHeight - root.clientHeight;
+    var percentage = range > 0 ? Math.max(0, Math.min(100, root.scrollTop / range * 100)) : 0;
+    bar.style.width = percentage + "%";
+  }
+  function queueProgress() {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    window.requestAnimationFrame(updateProgress);
+  }
+  window.addEventListener("hashchange", revealHash);
+  window.addEventListener("beforeprint", preparePrint);
+  window.addEventListener("afterprint", restorePrint);
+  window.addEventListener("scroll", queueProgress, { passive: true });
+  window.addEventListener("resize", queueProgress);
+  document.addEventListener("toggle", queueProgress, true);
+  revealHash();
+  updateProgress();
+}());
+</script></body></html>

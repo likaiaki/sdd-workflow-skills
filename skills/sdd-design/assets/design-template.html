@@ -157,6 +157,16 @@
       <tr><td>【模块／行为与关联需求】</td><td>【排除项及原因】</td><td>【现有业务规则、机制与接口】</td><td>【真实约束和来源；未知关联问题编号】</td></tr>
       </tbody></table>
     </div>
+  <section class="card" id="domain-mapping">
+    <h3>业务概念与技术名称映射</h3>
+    <p class="lead" data-authoring>沿用项目有效词典，注明来源／修订与本次概念增量及确认状态。只列相关对象和重要抽象，历史技术名可有兼容映射；候选不写成已确认定义。无相关变化时引用有效来源即可。</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="业务与技术名称映射">
+      <table><thead><tr><th scope="col">业务范围／概念</th><th scope="col">规范名、定义与关系</th><th scope="col">模块职责／代码标识</th><th scope="col">接口／存储／展示名</th><th scope="col">别名、兼容与影响</th><th scope="col">来源／修订／确认</th></tr></thead><tbody>
+        <tr><td>【相关范围及稳定标识】</td><td>【规范名及与相近对象的区别】</td><td>【实际职责及标识，未实现注明】</td><td>【本次需要的实际对应关系】</td><td>【保留或改名理由及受影响引用】</td><td>【词典基线、本次增量与确认依据】</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
   <section id="correctness">
     <h3>2.1 正确性约束：系统必须守住什么</h3>
     <p class="lead" data-authoring>从已确认需求与契约提取关键规则，再说明设计保证。区分始终成立、合法中间状态与限定窗口内完成的结果；规则不明时列问题，不自定业务承诺。</p>
@@ -346,6 +356,7 @@
     </div>
     <div class="callout warn"><strong>当前设计确认</strong><span class="status">模板尚未形成项目设计，未获得项目确认。</span> 正式稿填写：当前版本、实际确认人、时间、对应内容及保留事项。专业检查完成且阻塞处理后为“设计就绪，待确认”，真实确认后再进入依赖实施。</div>
     <h3>术语与通俗解释</h3>
+    <p class="hint">解释与前述概念映射使用同一来源，必要摘录注明修订；这里不独立重定义业务对象。</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="术语解释表">
       <table><thead><tr><th scope="col">术语／真实技术名</th><th scope="col">在本方案中的通俗解释</th><th scope="col">含义边界与引用</th></tr></thead><tbody>
       <tr><td>【首次出现时正文也要解释】</td><td>【具体解决什么、如何影响用户】</td><td>【不作超出实际机制的承诺】</td></tr>

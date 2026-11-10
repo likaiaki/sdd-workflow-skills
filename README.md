@@ -2,7 +2,7 @@
 
 面向主流 Agent 工具的通用 SDD 研发交付技能套件，支持通过命令安装完整技能包。
 
-当前仓库版本为 **0.3.1**，流程手册为 **1.1**。它支持新功能、功能扩展和 Bug 分流，覆盖需求验证、技术设计、开发验证、代码审核、提测交接及测试岗位独立验收。
+当前仓库版本为 **0.4.0**，流程手册为 **1.2**。它支持新功能、功能扩展和 Bug 分流，覆盖需求验证、技术设计、开发验证、代码审核、提测交接及测试岗位独立验收。
 
 ## 命令安装
 
@@ -18,7 +18,7 @@ npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex --gl
 npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex claude-code cursor opencode gemini-cli github-copilot --global
 ```
 
-在目标项目中省略 `--global` 即为项目安装。Cursor 也支持这条命令安装路径。`--skill '*'` 会带上全部九个 SDD skill 和 `grilling`，使跨技能引用完整。
+在目标项目中省略 `--global` 即为项目安装。Cursor 也支持这条命令安装路径。`--skill '*'` 会带上全部九个 SDD skill、`grilling` 和 `domain-modeling`，使跨技能引用完整。
 
 支持 Codex、Claude Code、Cursor、OpenCode、Gemini CLI、GitHub Copilot、Amp、Windsurf、Roo Code、Continue、Kiro CLI、Qoder、Trae、Qwen Code 和 Kimi Code CLI 的安装目录适配。Cline 与新版 Antigravity 的明确目录安装方式也已提供。
 
@@ -59,7 +59,7 @@ flowchart LR
 | [sdd-review-code](skills/sdd-review-code/SKILL.md) | 核对实际改动、风险和验证证据 |
 | [sdd-acceptance](skills/sdd-acceptance/SKILL.md) | 测试岗位独立准备、执行验收与复测 |
 
-需求澄清按需引用随套件保留的 [grilling](skills/grilling/SKILL.md)，相关来源记录见 [DEPENDENCIES.md](DEPENDENCIES.md)。
+需求澄清按需引用随套件保留的 [grilling](skills/grilling/SKILL.md)，概念新增或冲突时按需使用 [domain-modeling](skills/domain-modeling/SKILL.md)，相关来源与适配记录见 [DEPENDENCIES.md](DEPENDENCIES.md)。
 
 ## 使用
 
@@ -94,11 +94,17 @@ features/v<版本>/<主模块>/<编号>-<特性名>/
 
 正式需求、设计与用例使用 HTML。已交付基线、后续关联变更、现行模块知识和每次运行证据按各自生命周期维护。完整约定与登记模板见 [产物存放规范](skills/sdd-workflow/references/artifact-storage.md) 和 [feature-template.yaml](skills/sdd-workflow/assets/feature-template.yaml)。
 
+## 领域语言与质量闭环
+
+需求、设计、用例、任务和代码沿用相同的术语基线及本次已确认概念增量。项目已有词典优先；业务定义与技术标识建立必要映射，旧接口名可按兼容关系保留。候选、确认目标和代码现状分别记录，旧构建继续使用对应基线，详见 [领域语言接入](skills/sdd-workflow/references/domain-language.md)。
+
+复杂 Bug 围绕用户原症状建立有界反馈；关键断言使用独立预期。代码审核区分需求／设计与项目规范，明确提交及工作区的实际范围，并保留全部适用风险检查与修复复核。普通任务复用有效结果，只在有依据时增加 ADR、原型、环境检查或复盘。
+
 ## 手册、模板与版本清单
 
-- [SOP HTML 手册 1.1](docs/sdd-sop-v1.1.html)，下载后在浏览器中打开，可离线阅读。
+- [SOP HTML 手册 1.2](docs/sdd-sop-v1.2.html)，下载后在浏览器中打开，可离线阅读。
 - [技术设计 HTML 模板](skills/sdd-design/assets/design-template.html)。
 - [技能版本与文件指纹](bundle-manifest.json)。
 - [验证范围](docs/verification.md)。
 
-手册第 14 章保留流程基线编写时的个人安装布局。当前跨 Agent 命令与目录适配统一维护在 [INSTALL.md](INSTALL.md)。
+当前跨 Agent 命令与目录适配统一维护在 [INSTALL.md](INSTALL.md)。旧版手册保留历史基线，实际使用以 1.2 和当前技能为准。

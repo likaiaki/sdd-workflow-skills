@@ -1,5 +1,7 @@
 # PRD 写作与完成标准
 
+相关业务术语按[统一来源规则](../../sdd-workflow/references/domain-language.md) 使用，规范名、相近概念、关系与状态含义明确；本次新增定义和确认状态可定位。正式稿收尾核对正文、业务规则表、图示和验收条件，词汇相同不代替概念正确。
+
 适用于本套通用流程中的正式需求文档。交付 HTML，具体要求见 [HTML 交付约定](../../sdd-workflow/references/html-delivery.md)。不依赖某个项目、技术栈或另一套文档 skill。
 
 ## 内容与决策边界

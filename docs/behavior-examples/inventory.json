@@ -1,0 +1,172 @@
+{
+  "suite_version": "0.4.0",
+  "type": "Independent Codex subagent trials on synthetic isolated projects; not native cross-Agent lifecycle or production acceptance",
+  "cases": [
+    {
+      "case": "design",
+      "artifact": "docs/behavior-examples/design.html",
+      "raw_output_sha256": "0e25901872f486c6e89c54a226ac80a006e9ef9c73f1fb270c3d3e4e55814c19",
+      "distributed_output_sha256": "519ec11d78630e8dfa8addf2143463117ade1d4fb8185ad7981513ec74b73649",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/design/AGENTS.md",
+          "sha256": "e2897cd66c80942b8250c50a66a28f670b8dec1b60b0415d6b1edcf92f72dd2e"
+        },
+        {
+          "path": "tests/behavior/fixtures/design/specs/terms.html",
+          "sha256": "e399516ad8afa92d3508e9493328075c5bb7ce4e21c6785519d8f0c169c34a52"
+        },
+        {
+          "path": "tests/behavior/fixtures/design/requirements.html",
+          "sha256": "956e7a564ec54bfeae70c6f883a60fe8b4d82228495f3dc9b210d8fbd454fd91"
+        },
+        {
+          "path": "tests/behavior/fixtures/design/draft-notes.md",
+          "sha256": "c7875d4c4c6de7802a9e84e619224b814833251d0e5b5ce5086ed7e4acbbd0d4"
+        },
+        {
+          "path": "tests/behavior/fixtures/design/backend/export.py",
+          "sha256": "043c32d8fc36f61dd731a704bbda08490c6fd5f754c8dbff972fa0608d68f903"
+        }
+      ]
+    },
+    {
+      "case": "qa",
+      "artifact": "docs/behavior-examples/qa.html",
+      "raw_output_sha256": "93c83565035e7d183a64b02a2f1d8992514d02c3eb0f69abc6d00e3e09e05f32",
+      "distributed_output_sha256": "4b1ba7fbce11466ed0cecb457fcf236fd89ab3b3cc449df32de9a8518a897f45",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/qa/AGENTS.md",
+          "sha256": "fb106bd03740957f707b3b685896b7998d4664fa6792ab9be270ca0494244f77"
+        },
+        {
+          "path": "tests/behavior/fixtures/qa/handoff.md",
+          "sha256": "842cc20d47ff480236e3a2527cfa2bf99c0d17a1bd139ed891448e901cd85b12"
+        },
+        {
+          "path": "tests/behavior/fixtures/qa/terms-r1.html",
+          "sha256": "f00eee953c604b9373af2671e6d1ee27fa3d57afa954ae4dd3d6927b41d64ba9"
+        },
+        {
+          "path": "tests/behavior/fixtures/qa/requirements-r1.html",
+          "sha256": "e6ad53cdc4b8ab5bc32c24824e06ab239984110beae19e7a26e8833e63fb0589"
+        },
+        {
+          "path": "tests/behavior/fixtures/qa/proposal-r2.md",
+          "sha256": "f18979fe564785a59415aa3f967cc689dbe6baa10319f58ff1d1d1029eda0771"
+        }
+      ]
+    },
+    {
+      "case": "model",
+      "artifact": "docs/behavior-examples/model.md",
+      "raw_output_sha256": "0bb8b5ddc8bb55c657a884ad134ea8a906f7862b14870baf36d72c28c7951e55",
+      "distributed_output_sha256": "e2b31ee030b5ab5b8bf3ae60f59e2561394a3e7189aeefbf3d7634d68c31111a",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/model/request.md",
+          "sha256": "e84f6da8d167b235294d997c45852eefeb4f0e9f3a7a3d6f6e7bd400a01167ea"
+        },
+        {
+          "path": "tests/behavior/fixtures/model/GLOSSARY-MAP.md",
+          "sha256": "da4b8a323f289331e29270c00fdd75e5b7eb0e5ce1bb9851e9b2422edc9509aa"
+        },
+        {
+          "path": "tests/behavior/fixtures/model/docs/ordering/GLOSSARY.md",
+          "sha256": "26ae71aa596b806c74b27faf7dfa4752641ae5061deabba038a87474588d638b"
+        },
+        {
+          "path": "tests/behavior/fixtures/model/docs/identity/GLOSSARY.md",
+          "sha256": "474719c39b541f5353c2038045d0ce1110f84bc296d16215a032844df6bce21f"
+        }
+      ]
+    },
+    {
+      "case": "simple",
+      "artifact": "docs/behavior-examples/simple.md",
+      "raw_output_sha256": "acf9b42aac8530fc5bcb203d69517d2073a1df0ed8a79f35eb8988a7ed259c31",
+      "distributed_output_sha256": "32d154db050ac092f584f19960ecb04a9991fec3f50ac4043e770ee79ec81909",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/simple/issue.md",
+          "sha256": "b521a545dc9213bf1526538dea0a1ce321ac62ed4d58e161eddad9f701001fae"
+        },
+        {
+          "path": "tests/behavior/fixtures/simple/formatter.py",
+          "sha256": "7a4fa9c20319a1d95fecd45bcca79758f2828a892aeee530cf8a12374f34a3e0"
+        },
+        {
+          "path": "tests/behavior/fixtures/simple/test_formatter.py",
+          "sha256": "8772a2b977a0427ddf5151d45b0a9e837c6a95553b0d8416359849eb911d1bfb"
+        }
+      ]
+    },
+    {
+      "case": "bug",
+      "artifact": "docs/behavior-examples/bug.md",
+      "raw_output_sha256": "51ac7ec4d2f87a1ef121358abc94f84c200d42ce7c300cb9cb124cca667ecb1d",
+      "distributed_output_sha256": "b5c8d2be3e822f5dd1d390ee7c7e34b75a90dc042b23808c8ab21adb390dbece",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/bug/issue.md",
+          "sha256": "18113b88c52f82f0362f3d54a6488bcaaf231712cf20877762d2d83b4e02dd91"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/api.py",
+          "sha256": "2087e4d8a359b942e411b0a23e991305e3feb4afb0a3708957e179b12d8d9a5e"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/service.py",
+          "sha256": "02051c9ff266e35a3410282ee34674b8dc96884551269f8295e867d58d86a79a"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/repo.py",
+          "sha256": "a5c8d89be09089147e096e8952a8d447cb16a3325418eda3e255c39bba24d89d"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/test_orders.py",
+          "sha256": "cd5a541f6394d98f4daee7301dab37cc7b5545deea23d256b7db4e168e4f42d7"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/test/__init__.py",
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": "tests/behavior/fixtures/bug/test/test_orders_regression.py",
+          "sha256": "d5a6f5b38d5c90ca92618629409a4c3e77cb8a9817f0d262b2a3b4cfe1d31d2a"
+        }
+      ]
+    },
+    {
+      "case": "review",
+      "artifact": "docs/behavior-examples/review.md",
+      "raw_output_sha256": "ca9ba44275409b7a8d799e30899c3eea35e4e9b7666d6f92fc71e8d6ea137d1c",
+      "distributed_output_sha256": "995270941da6a3ae8016a6b76edf8263607a951ba38a36df7b86814def30fc73",
+      "normalization": "Local source paths replaced with repository-relative references; trailing blank lines normalized; observations and results retained",
+      "inputs": [
+        {
+          "path": "tests/behavior/fixtures/review/spec.md",
+          "sha256": "4c2394220166afc834db477c65e8108e3a70e89935bbca944d400f545ac19e29"
+        },
+        {
+          "path": "tests/behavior/fixtures/review/orders.py",
+          "sha256": "8ed09b24522bd9107ea385856cc2e658d58353cb2d16465b66f216dcb563a565"
+        },
+        {
+          "path": "tests/behavior/fixtures/review/lookup.py",
+          "sha256": "fcd11caf7f335e38a10ae9100300ea45e9bfb4ff6304a3abb79a802f3d41fe29"
+        },
+        {
+          "path": "tests/behavior/fixtures/review/test_orders.py",
+          "sha256": "87a7369ea888fdaff13e3399a40fa511afd991c1c655917b342d7bb2d3e59501"
+        }
+      ]
+    }
+  ]
+}

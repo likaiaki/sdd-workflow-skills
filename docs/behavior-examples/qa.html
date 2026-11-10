@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>报表重试 · 独立功能验收用例 r1</title>
+<style>
+:root{color-scheme:light;--ink:#182230;--muted:#4f5e70;--line:#d5dee8;--paper:#fff;--accent:#154ca1;--warn:#745100}
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:var(--ink);font:16px/1.65 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:1600px;margin:auto;padding:32px}header,section{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px;margin:0 0 22px}h1{font-size:30px;margin:0 0 10px}h2{font-size:24px;margin:0 0 16px}h3{font-size:19px;margin:20px 0 10px}p{margin:10px 0}a{color:var(--accent);text-underline-offset:3px}nav ul{display:flex;flex-wrap:wrap;gap:10px 24px;list-style:none;padding:0}.notice{border-left:4px solid #bd8612;background:#fff7e1;padding:12px 18px}.muted{color:var(--muted)}.table-wrap{overflow-x:auto;border:1px solid var(--line);margin:12px 0}table{border-collapse:collapse;width:100%;text-align:left}caption{text-align:left;padding:12px;font-weight:700}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top}thead{background:#edf2f8}th{font-weight:650}td ol,td ul{margin:0;padding-left:20px}code{font:0.9em/1.5 ui-monospace,monospace;overflow-wrap:anywhere}.cases{min-width:1450px}.cases th:nth-child(1){width:9%}.cases th:nth-child(2){width:11%}.cases th:nth-child(3){width:4%}.cases th:nth-child(4){width:6%}.cases th:nth-child(5){width:10%}.cases th:nth-child(6){width:13%}.cases th:nth-child(7){width:17%}.cases th:nth-child(8){width:11%}.cases th:nth-child(9){width:19%}tr{scroll-margin-top:20px}.tag{display:inline-block;background:#edf2f8;border-radius:4px;padding:1px 7px}dl{display:grid;grid-template-columns:150px 1fr;gap:6px 16px}dt{font-weight:650}dd{margin:0}.hash{font-size:12px;word-break:break-all}footer{color:var(--muted);padding:0 6px 24px}a:focus-visible{outline:3px solid #154ca1;outline-offset:3px}@media(max-width:700px){main{padding:12px}header,section{padding:16px}h1{font-size:25px}dl{display:block}dd{margin-bottom:10px}}
+@media print{@page{size:A3 landscape;margin:12mm}body{background:white;font-size:10px}main{max-width:none;padding:0}header,section{border:0;padding:8px 0;margin:0 0 12px}.table-wrap{overflow:visible;border:0}.cases{min-width:0;table-layout:fixed}th,td{padding:5px;overflow-wrap:anywhere}thead{display:table-header-group}h2,h3{break-after:avoid}nav{display:none}a{color:inherit;text-decoration:underline}.notice{background:white}.hash{font-size:8px}}
+</style>
+</head>
+<body><main>
+<header id="document">
+<p class="muted">独立验收工程 / 测试岗位 / 报表重试</p>
+<h1>报表重试功能验收用例</h1>
+<dl>
+<dt>文档修订</dt><dd>r1 · 2026-11-10</dd>
+<dt>待测构建</dt><dd><code>export-build-1</code>，来自交接声明；本次未取得或运行构建，不把交接声明当作部署核验证据。</dd>
+<dt>有效来源</dt><dd><a href="../../tests/behavior/fixtures/qa/requirements-r1.html">requirements-r1.html（r1）</a>；<a href="../../tests/behavior/fixtures/qa/terms-r1.html">terms-r1.html（r1）</a>；<a href="../../tests/behavior/fixtures/qa/handoff.md">handoff.md</a>。路径均相对本文件所在的 QA 工程。</dd>
+<dt>任务登记</dt><dd>沿用 handoff.md：仅报表重试，产物为本工程的 <code>acceptance-cases.html</code>。上游稳定特性标识、发布版本和设计修订未提供，不自行分配或推定。</dd>
+<dt>负责岗位</dt><dd>测试岗位；本文由 AI 辅助编写，未经过测试工程师人工确认或独立评审。</dd>
+<dt>当前状态</dt><dd><strong>可审阅 HTML 草稿。</strong>4 条业务用例已定义；2 条非失败状态用例的数据枚举待补；执行契约待补，整体不标为“用例就绪”。</dd>
+<dt>执行状态</dt><dd><strong>未验证（未执行）</strong>。4 条均未执行，未产生产品通过／不通过结论、脚本或运行报告。</dd>
+</dl>
+<p class="notice">本次只准备用例。不得从本文推导出已完成 UI、真实依赖集成、E2E、研发验证或测试岗位签字；文档结构检查仅说明产物结构。</p>
+<nav aria-label="文档目录"><ul>
+<li><a href="#coverage">1. 用例覆盖概览</a></li><li><a href="#cases">2. 用例清单表</a></li><li><a href="#special">3. 异常与边界专项清单</a></li><li><a href="#automation">4. 自动化可行性标注</a></li>
+</ul></nav>
+</header>
+
+<section id="coverage">
+<h2>1. 用例覆盖概览</h2>
+<h3 id="sources">有效依据与术语</h3>
+<p>材料中明确记录“需求 r1 已确认、研发已交付 export-build-1”。本次消费该测试样例的确认记录，不新增确认决定。尚未提供设计、代码或构建制品、开发验证证据、页面入口、正式 API 契约和环境配置；这些缺口影响执行准备，不用候选提案补齐。</p>
+<div class="table-wrap"><table>
+<caption>选定构建的语言基线与技术映射</caption>
+<thead><tr><th>来源 / 状态</th><th>本次使用方式</th><th>边界</th></tr></thead><tbody>
+<tr><td><a href="../../tests/behavior/fixtures/qa/terms-r1.html">terms-r1.html r1</a>，由交接指定</td><td>报表领域使用“导出任务”与“执行尝试”：T1 是导出任务，A1 是其原执行尝试。</td><td>一次导出任务与一次运行分别观察；不能用新增导出任务代替新增执行尝试。</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/handoff.md">handoff.md</a>，当前构建映射</td><td>原生 API 技术名称为 <code>export_jobs</code>，对应导出任务。</td><td>名称不是路由、HTTP 方法、字段、错误码或存储表契约；本文不据此猜接口。</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/proposal-r2.md">proposal-r2.md</a>，候选、未确认、尚未实现</td><td>不作为 export-build-1 的验收预期。</td><td>候选“报表请求”及“每次重试生成新任务 ID”没有覆盖 r1；若以后确认和交付，另行关联新版本用例。</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/terms-r1.html">terms-r1.html r1</a>，其他领域</td><td>“账户”在结算／身份领域分别消歧。</td><td>本范围使用“任务所属用户 u1／其他用户 u2”，不引入结算账户、跨租户或角色层级规则。</td></tr>
+</tbody></table></div>
+<p>下表是<strong>定义覆盖</strong>。正常、异常和边界分别映射用例或缺口；未执行不计算通过率。优先级依据：P0 为任务身份、次数和归属保护，错误可能生成额外工作或越权；P1 为状态限制与拒绝分支；本次没有有依据的 P2 场景。优先级不代表执行顺序。</p>
+<div class="table-wrap"><table>
+<caption>需求／验收条件 × 场景类别</caption>
+<thead><tr><th>功能点及完整来源标识</th><th>正常</th><th>异常</th><th>边界</th><th>岗位 / 定义缺口</th></tr></thead><tbody>
+<tr><td>失败任务可重试；任务 ID 不变；新增尝试<br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">requirements-r1.html r1 · REQ-1</a></td><td><a href="#TC-RPT-001">TC-RPT-001</a>：所属用户重试失败 T1</td><td><a href="#TC-RPT-003">TC-RPT-003</a>：其他用户不能以失败状态绕过归属</td><td>最小数据 1 个任务、原尝试集合 {A1} → {A1,A2}，见 <a href="#TC-RPT-001">TC-RPT-001</a>。最大尝试次数未给出，见 <a href="#GAP-04">GAP-04</a>。</td><td>测试岗位；业务预期明确，入口及观察契约待补。</td></tr>
+<tr><td>非失败任务拒绝重试且无新增尝试<br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">requirements-r1.html r1 · REQ-1</a></td><td>不适用：本条本身定义拒绝；允许配对见 <a href="#TC-RPT-001">TC-RPT-001</a>。</td><td><a href="#TC-RPT-002">TC-RPT-002</a>：所属用户重试非失败 T1；<a href="#TC-RPT-004">TC-RPT-004</a>：其他用户重试非失败 T1</td><td>失败／非失败分区全部具体枚举待 <a href="#GAP-02">GAP-02</a> 补齐；不自行填入状态名称或数值。</td><td>测试岗位；两条用例的非失败状态数据仍为草稿。</td></tr>
+<tr><td>只有所属用户可重试；其他用户拒绝且无状态与尝试变化<br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#AC-1">requirements-r1.html r1 · AC-1</a></td><td><a href="#TC-RPT-001">TC-RPT-001</a>：u1 所有权允许配对</td><td><a href="#TC-RPT-003">TC-RPT-003</a>、<a href="#TC-RPT-004">TC-RPT-004</a>：u2 拒绝，无状态／尝试变化</td><td>所属／非所属两侧均映射；跨租户、特殊角色或未登录语义未提供，见 <a href="#GAP-04">GAP-04</a>。</td><td>测试岗位；不猜错误码、错误字段、文案及规则校验先后。</td></tr>
+</tbody></table></div>
+<h3 id="decision-table">归属与状态的决定组合</h3>
+<div class="table-wrap"><table><thead><tr><th>发起用户</th><th>导出任务前态</th><th>业务判据来源</th><th>用例</th></tr></thead><tbody>
+<tr><td>u1，所属用户</td><td>失败</td><td>REQ-1 / AC-1：允许重试，T1 不变，新增一次执行尝试</td><td><a href="#TC-RPT-001">TC-RPT-001</a></td></tr>
+<tr><td>u1，所属用户</td><td>非失败</td><td>REQ-1：拒绝，无新增执行尝试</td><td><a href="#TC-RPT-002">TC-RPT-002</a></td></tr>
+<tr><td>u2，非所属用户</td><td>失败</td><td>AC-1：拒绝，无状态与尝试变化</td><td><a href="#TC-RPT-003">TC-RPT-003</a></td></tr>
+<tr><td>u2，非所属用户</td><td>非失败</td><td>REQ-1 / AC-1：拒绝，无状态与尝试变化</td><td><a href="#TC-RPT-004">TC-RPT-004</a></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="cases">
+<h2>2. 用例清单表</h2>
+<h3 id="PREP-RPT-r1">公共准备 PREP-RPT-r1（定义，尚未执行）</h3>
+<p>参数：用例 ID、发起身份（u1 或 u2）、任务前态（失败或 <a href="#D-NF">D-NF</a> 中的具体非失败状态）。每例独立建立快照；不能使用其他用例运行后的 T1。</p>
+<ol>
+<li>在获准的 CI／共享验收环境取得与 export-build-1 对应的构建、环境与入口记录。入口尚缺，待 <a href="#GAP-01">GAP-01</a>；本次不连接环境。</li>
+<li>为本例分配独立可重建的数据域，绑定测试身份 u1 和 u2。二者是不同用户，不能把权限判断替换为固定允许或固定拒绝。</li>
+<li>通过该构建获准的数据准备方式，建立一个属于 u1 的导出任务 T1，已有执行尝试集合恰为 {A1}，并将任务置于参数指定的前态。实际状态值和准备入口由交付方提供，不直接猜数据库或私有接口。</li>
+<li>暂停或隔离本例以外会改变 T1 的处理者，在执行前记录权威快照 B：T1 的任务 ID、所属用户、任务状态及完整执行尝试集合 {A1}。观察渠道待 <a href="#GAP-03">GAP-03</a> 明确，不能仅凭按钮或 HTTP 状态码认定落库。</li>
+<li>在本例指定身份下取得可提交对 T1 重试动作的正式入口。拒绝用例若页面不提供按钮，仍须使用已交付的正式操作契约验证服务端拒绝，不能以“看不到按钮”代替无副作用断言。</li>
+</ol>
+<p><strong>完成状态：</strong>身份绑定、前态和快照确定，数据域独立，正式入口与权威观察点可用。任一缺失则该例仍未验证，不擅自补造数据。</p>
+<h3 id="DATA-RPT-r1">测试数据 DATA-RPT-r1</h3>
+<div class="table-wrap"><table><thead><tr><th>数据 ID</th><th>确定输入 / 关系</th><th>绑定与有效性</th></tr></thead><tbody>
+<tr id="D-OWNER-FAIL"><td>D-OWNER-FAIL</td><td>发起用户 u1；T1 所属 u1；任务前态“失败”；原执行尝试集合 {A1}，数量 1。</td><td>TC-RPT-001 专属数据域。T1/A1 是材料给定的逻辑标识；环境实际生成 ID 通过准备记录绑定，不硬编码他人数据。新尝试逻辑名 A2，实际值从权威观察点取得，必须不同于 A1。</td></tr>
+<tr id="D-NF"><td>D-NF（待补参数表）</td><td>一个已确认的、确切的非失败状态／行；每行 T1 所属 u1，原尝试集合 {A1}，数量 1。</td><td>材料没有任何非失败状态的具体枚举。须先由需求／设计来源提供值及含义，再登记为 D-NF-01、D-NF-02 等；当前未生成虚构状态数据，TC-RPT-002／004 不具备完整数据。</td></tr>
+<tr id="D-OWNER-NF"><td>D-OWNER-NF</td><td>发起用户 u1；逐行使用 D-NF 的具体状态值；每行重建 T1 与 {A1}。</td><td>TC-RPT-002 的每个数据行独立，不把前一行结果当作初始状态。状态数据待补。</td></tr>
+<tr id="D-OTHER-FAIL"><td>D-OTHER-FAIL</td><td>发起用户 u2；T1 所属 u1；任务前态“失败”；原执行尝试集合 {A1}，数量 1。</td><td>TC-RPT-003 专属数据域。u1 仅用于准备／观察，重试动作必须以 u2 发起。</td></tr>
+<tr id="D-OTHER-NF"><td>D-OTHER-NF</td><td>发起用户 u2；T1 所属 u1；逐行使用 D-NF 的具体状态值；原尝试集合 {A1}，数量 1。</td><td>TC-RPT-004 的每个数据行独立；状态数据待补。u1／获准观察者读取快照，不替 u2 执行重试。</td></tr>
+</tbody></table></div>
+<h3 id="OBS-RPT-r1">共用观察、清理与证据边界 OBS-RPT-r1</h3>
+<p>每例候选层级是正式操作入口的功能／真实集成验证；真实保留重试业务、归属判定、状态限制和任务／尝试存储，不用研发 mock 证明这些结论。页面表现仅在有已交付页面契约时另行细化，不能据本文宣称页面通过。外部报表生成成功、文件下载和执行尝试终态不在已给定范围。</p>
+<p>步骤中的“处理完成点”是该构建已确认的可观测处理边界，须由 <a href="#GAP-03">GAP-03</a> 提供判定方式；若异步，则还需关联标识、允许观察窗口与最终可见条件。不写任意等待时间。无法证明操作完成或读到权威结果时记为<strong>未验证</strong>，不能用一次空查询证明无后续副作用。</p>
+<p>每例结束只清理本例数据域创建的 T1、尝试及临时认证绑定；保留脱敏证据与逻辑 ID 对应关系。清理入口未提供时先隔离数据并登记，不删除原有或他人资源。记录构建身份、环境、用例及数据行、发起身份、动作回执、操作前后权威快照、观察点和清理结果；执行报告另行追加，不修改本用例定义为“通过”。</p>
+<div class="table-wrap"><table class="cases" id="case-table">
+<caption>报表重试用例 · 固定九列 · 全部未执行</caption>
+<thead><tr><th>ID</th><th>标题</th><th>优先级</th><th>类型</th><th>关联需求</th><th>前置条件</th><th>步骤</th><th>测试数据</th><th>预期结果</th></tr></thead><tbody>
+<tr id="TC-RPT-001">
+<td>TC-RPT-001<br><span class="tag">未验证</span></td>
+<td>所属用户重试失败任务时保留任务 ID 并新增尝试</td><td>P0</td><td>功能<br>标签：允许配对、任务身份</td>
+<td><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">r1 · REQ-1</a><br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#AC-1">r1 · AC-1</a></td>
+<td><a href="#PREP-RPT-r1">PREP-RPT-r1</a>（本例、u1、失败）完成；<a href="#OBS-RPT-r1">OBS-RPT-r1</a> 可用。入口／观察契约当前待补。</td>
+<td><ol><li>以 u1 向正式入口提交一次针对 T1 的重试动作。</li><li>取得该动作到达已确认处理完成点的记录。</li><li>读取 T1 的操作后权威快照。</li></ol></td>
+<td><a href="#D-OWNER-FAIL">D-OWNER-FAIL</a>：u1、T1、A1；初始尝试数 1。本例独立创建。</td>
+<td>动作被业务允许；观察到的仍是同一 T1（ID 与快照 B 一致），不是另一个导出任务。T1 执行尝试集合为 {A1,A2}，数量从 1 变为 2；A2 与 A1 不同，且关联 T1。新尝试记录是预期副作用；不规定重试后任务状态值或报表最终成功。任一关键观察缺失则未验证，不仅凭成功码通过。</td>
+</tr>
+<tr id="TC-RPT-002">
+<td>TC-RPT-002<br><span class="tag">未验证</span><br>状态数据待补</td>
+<td>所属用户重试非失败任务被拒绝且不新增尝试</td><td>P1</td><td>异常<br>标签：非法状态、参数化</td>
+<td><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">r1 · REQ-1</a></td>
+<td>每个已补齐的 D-NF 数据行分别完成 <a href="#PREP-RPT-r1">PREP-RPT-r1</a>（本例＋行 ID、u1、该行非失败状态）；<a href="#OBS-RPT-r1">OBS-RPT-r1</a> 可用。</td>
+<td><ol><li>以 u1 向正式入口提交一次针对 T1 的重试动作。</li><li>取得该动作到达已确认处理完成点的记录。</li><li>读取 T1 的操作后执行尝试集合。</li></ol></td>
+<td><a href="#D-OWNER-NF">D-OWNER-NF</a>；具体状态与数据行见 <a href="#D-NF">D-NF（待补）</a>。初始尝试数 1。</td>
+<td>每个数据行均被业务拒绝；T1 执行尝试集合仍为 {A1}，数量仍为 1，没有新增尝试。拒绝不能只有错误提示而实际新增尝试。REQ-1 未明确非失败拒绝后的任务状态保持规则，本文不追加该状态断言。无需指定 HTTP 错误码、字段或文案。</td>
+</tr>
+<tr id="TC-RPT-003">
+<td>TC-RPT-003<br><span class="tag">未验证</span></td>
+<td>其他用户重试失败任务被拒绝且无状态与尝试变化</td><td>P0</td><td>安全<br>标签：越权拒绝</td>
+<td><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#AC-1">r1 · AC-1</a><br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">r1 · REQ-1</a>（失败前态）</td>
+<td><a href="#PREP-RPT-r1">PREP-RPT-r1</a>（本例、u2、失败）完成；T1 仍所属 u1；<a href="#OBS-RPT-r1">OBS-RPT-r1</a> 可用。u2 能提交针对确定 T1 的动作，权限判定保留真实。</td>
+<td><ol><li>以 u2 向正式入口提交一次针对 T1 的重试动作。</li><li>取得该动作到达已确认处理完成点的记录。</li><li>由 u1／获准观察者读取 T1 的操作后权威快照。</li></ol></td>
+<td><a href="#D-OTHER-FAIL">D-OTHER-FAIL</a>：u2 与任务所属 u1 不同；T1 前态失败；初始 {A1}。本例独立创建。</td>
+<td>u2 的动作被业务拒绝；T1 状态仍为快照 B 中的失败状态；执行尝试集合仍为 {A1}，与 B 无变化，不新增或替换尝试。不能仅以 u2 无页面权限或响应失败代替状态／尝试核对；不推断具体错误字段、信息披露规则或错误文案。</td>
+</tr>
+<tr id="TC-RPT-004">
+<td>TC-RPT-004<br><span class="tag">未验证</span><br>状态数据待补</td>
+<td>其他用户重试非失败任务被拒绝且无状态与尝试变化</td><td>P1</td><td>安全<br>标签：越权、状态交集、参数化</td>
+<td><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#AC-1">r1 · AC-1</a><br><a href="../../tests/behavior/fixtures/qa/requirements-r1.html#REQ-1">r1 · REQ-1</a></td>
+<td>每个已补齐的 D-NF 数据行分别完成 <a href="#PREP-RPT-r1">PREP-RPT-r1</a>（本例＋行 ID、u2、该行非失败状态）；T1 所属 u1；<a href="#OBS-RPT-r1">OBS-RPT-r1</a> 可用。</td>
+<td><ol><li>以 u2 向正式入口提交一次针对 T1 的重试动作。</li><li>取得该动作到达已确认处理完成点的记录。</li><li>由 u1／获准观察者读取 T1 的操作后权威快照。</li></ol></td>
+<td><a href="#D-OTHER-NF">D-OTHER-NF</a>；具体状态与数据行见 <a href="#D-NF">D-NF（待补）</a>。初始尝试数 1。</td>
+<td>每个数据行均被业务拒绝；T1 状态等于该行快照 B 的原非失败状态；执行尝试集合与 B 相同，仍为 {A1}，数量 1，无新增／替换。归属和状态两项均不满足时仍无上述副作用；不要求某一种拒绝原因先出现。</td>
+</tr>
+</tbody></table></div>
+<p>四条均遵循独立准备、单一验证意图、步骤／数据／预期分列。参数化行数量未确定，不能把 4 条定义写成已完成固定数量的可执行数据场景。</p>
+</section>
+
+<section id="special">
+<h2>3. 异常与边界专项清单</h2>
+<div class="table-wrap"><table>
+<caption>逐项适用性，不用未知冒充不适用</caption>
+<thead><tr><th>专项</th><th>关联依据</th><th>适用性、具体触发／数据</th><th>用例／共用规则</th><th>剩余缺口</th></tr></thead><tbody>
+<tr><td>空值</td><td>REQ-1（操作对象）；具体入参契约缺失</td><td>待补：若正式入口接受任务标识，核对字段缺失、null、空字符串的适用区别；不先造请求字段。</td><td><a href="#GAP-01">GAP-01</a></td><td>必填条件、空值语义与拒绝后影响未提供。</td></tr>
+<tr><td>超长与数量边界</td><td>REQ-1</td><td>适用最小数量：原 1 次尝试 → 成功后 2 次；拒绝仍 1 次。字符串／最大尝试次数没有上限依据。</td><td><a href="#TC-RPT-001">TC-RPT-001</a> 至 <a href="#TC-RPT-004">TC-RPT-004</a></td><td><a href="#GAP-04">GAP-04</a>：上限及单位未知，不自定 255、最大值或最大值＋1。</td></tr>
+<tr><td>特殊字符</td><td>具体字段／协议未提供</td><td>待补：确认重试可输入字段及其编码／空白规则后再取具体数据；没有依据穷举字符。</td><td><a href="#GAP-01">GAP-01</a></td><td>尚不能判断用户文本输入是否在本功能中存在。</td></tr>
+<tr><td>重复提交</td><td>REQ-1 中一次重试的基本行为</td><td>待补：u1 对同一失败 T1 连续提交两次；第二次受状态、幂等或次数规则影响，规则未提供。</td><td><a href="#GAP-04">GAP-04</a></td><td>不能断言“一次”或“两次”新增，也不声称所有重试天然幂等。</td></tr>
+<tr><td>并发</td><td>共享 T1 的重试风险，非新增已确认需求</td><td>待补：两个 u1 会话对同一 T1 受控重叠提交；需确认合法结果不变量及锁／状态观察点。</td><td><a href="#GAP-04">GAP-04</a></td><td>不得用顺序两次提交或随意指定获胜者代替并发判据。</td></tr>
+<tr><td>超时</td><td>重试结果可能未知的风险</td><td>待补：在提交后响应前断开／延迟；阈值、是否可能已生效、查询与恢复规则均未知。</td><td><a href="#GAP-03">GAP-03</a>、<a href="#GAP-04">GAP-04</a></td><td>不制造任意等待、重发策略或 SLA。</td></tr>
+<tr><td>弱网</td><td>客户端操作风险；页面契约未提供</td><td>待补：确认实际入口、重连和重复动作规则后确定延迟／断连参数；本次不运行网络注入。</td><td><a href="#GAP-01">GAP-01</a>、<a href="#GAP-04">GAP-04</a></td><td>缺 UI、网络参数与恢复语义，不能给出二值结果。</td></tr>
+<tr><td>权限与越权</td><td>AC-1</td><td>适用：u1 允许配对；u2 针对所属 u1 的 T1 拒绝，覆盖失败和非失败。</td><td><a href="#TC-RPT-001">TC-RPT-001</a>、<a href="#TC-RPT-003">TC-RPT-003</a>、<a href="#TC-RPT-004">TC-RPT-004</a></td><td>非失败枚举待补；未登录、跨租户、特殊角色与拒绝信息披露规则另列 <a href="#GAP-04">GAP-04</a>，不推定存在。</td></tr>
+<tr><td>数据不存在</td><td>任务对象风险；契约未提供</td><td>待补：不存在／已删除 T1 的区分、拒绝或查询空结果语义及无副作用要求。</td><td><a href="#GAP-01">GAP-01</a>、<a href="#GAP-04">GAP-04</a></td><td>不猜 HTTP 404 或具体错误文案。</td></tr>
+<tr><td>非法状态流转</td><td>REQ-1</td><td>适用：已确认非失败状态逐项重试；不新增执行尝试。</td><td><a href="#TC-RPT-002">TC-RPT-002</a>；归属拒绝交集 <a href="#TC-RPT-004">TC-RPT-004</a></td><td><a href="#GAP-02">GAP-02</a>：状态枚举、业务含义和准备方式未给出。所属用户非失败拒绝后的任务状态保持要求也未给出。</td></tr>
+<tr><td>性能、兼容</td><td>材料未给非功能验收目标</td><td>当前不适用独立性能／兼容通过判定：范围仅功能重试，无负载、阈值或兼容矩阵。</td><td>不新增无来源用例。</td><td>不代表容量或浏览器兼容已经验证；若追加目标再定义。</td></tr>
+</tbody></table></div>
+<h3 id="EFFECT-RPT-r1">副作用断言与限制 EFFECT-RPT-r1</h3>
+<div class="table-wrap"><table><thead><tr><th>副作用</th><th>本次处理</th><th>证据边界</th></tr></thead><tbody>
+<tr><td>持久化／记录归属</td><td>TC-RPT-001：同一 T1 新增 A2，保留 A1，尝试总数 2；TC-RPT-002：不新增；TC-RPT-003／004：尝试集合不变。</td><td>须观察真实权威记录；具体读接口、表和字段未知，不声称直接数据库落库已验证。尝试与任务的关联须可核对。</td></tr>
+<tr><td>状态机</td><td>TC-RPT-003／004：其他用户拒绝后任务状态与原尝试集合不变；TC-RPT-002：拒绝且无新增尝试；TC-RPT-001：不自定成功后的任务状态值。</td><td>重试后状态及已有尝试详细字段语义未知，不追加无依据流转或字段不变断言。</td></tr>
+<tr><td>消息／通知</td><td>待补适用性：材料没有收件对象、事件、次数或规则，本文不要求新增通知。</td><td>如重试依赖投递，须补充版本化契约及观察条件；不把 mock 调用当实际送达。</td></tr>
+<tr><td>埋点</td><td>当前不适用埋点验收：无相关验收条件。</td><td>不宣称系统没有埋点，也不新增事件或去重要求。</td></tr>
+<tr><td>下游接收／报表生成</td><td>新执行尝试已覆盖；下游是否接收、报表成功及文件下载不属于当前已确认判据。</td><td>如其为尝试创建的必要验证环节，交付方需补契约；不把新尝试等同导出成功。</td></tr>
+<tr><td>日志</td><td>本次仅要求验收过程证据可追溯，不新增产品日志级别、格式或内容要求。</td><td>日志若被选为权威观察点，须确认关联标识与可靠性；任意调试输出不足以证明拒绝无写入。</td></tr>
+</tbody></table></div>
+<h3 id="gaps">未决项与最小补齐动作</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>未提供的事实／决定</th><th>影响</th><th>向对应来源请求的最小补齐</th></tr></thead><tbody>
+<tr id="GAP-01"><td>GAP-01</td><td>设计修订、正式页面／API 入口、身份取得、数据创建／清理、入参契约缺失；错误码和错误字段明确未提供。</td><td>四条均不能绑定为脚本或实际执行；空值等协议场景待补。错误码缺失不妨碍本文业务判据定义。</td><td>由交付方提供 export-build-1 对应契约及入口；如只做业务层验收，不强行要求特定错误字段，仍需业务拒绝回执和权威观察方式。</td></tr>
+<tr id="GAP-02"><td>GAP-02</td><td>失败／非失败的实际状态值、全部非失败状态、状态准备方式及所属用户非失败拒绝后的状态规则未提供。</td><td>TC-RPT-002／004 参数数据不完整；不能声明完整状态覆盖，不能新增状态预期。</td><td>由需求／设计负责人提供该构建有效状态表和相应规则，补齐 D-NF 每行的具体输入与映射后复核。</td></tr>
+<tr id="GAP-03"><td>GAP-03</td><td>构建制品／部署身份、开发验证证据、验收环境、权威读点、处理完成点及异步窗口缺失。</td><td>四条均未验证；无法确定无后续副作用或读取的一致性，不把缺口归为产品失败。</td><td>由交付及环境提供方给出可取得的版本化制品、相关开发证据、受控环境与快照能力；异步时明确允许窗口、关联标识、数量与可观察完成条件。本次不部署或等待环境。</td></tr>
+<tr id="GAP-04"><td>GAP-04</td><td>重复／并发、超时／恢复、次数上限、不存在任务、额外身份边界等规则未提供。</td><td>已识别扩展风险只能列为待补，不能写成无来源的确定用例或宣称全范围就绪。</td><td>由需求／设计负责人判定适用性并确认具体预期、边界和数据；仅补充相关场景，不替用户确认。</td></tr>
+<tr id="GAP-05"><td>GAP-05</td><td>上游稳定特性 ID、发布版本与测试工程师评审结论未提供。</td><td>目前追溯依赖交接文件、REQ-1／AC-1 和文件指纹；不能宣称已人工放行。</td><td>沿用未来提供的原始标识和评审记录补充关联；无需为本次准备擅建镜像特性包、发布版本或确认记录。</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="automation">
+<h2>4. 自动化可行性标注</h2>
+<p>当前 QA 目录只有材料，未发现已提供的测试框架、运行入口或工具配置。以下均为候选，不代表脚本已实现、工具已核实可用或测试已运行；本次不安装工具。负责岗位为测试岗位，目标工程为本文件所在独立 QA 工程；执行阶段是后续被明确发起的独立验收。</p>
+<div class="table-wrap"><table><thead><tr><th>用例</th><th>标注与理由</th><th>候选层级／必要工具</th><th>真实／替身边界及前提</th><th>当前状态</th></tr></thead><tbody>
+<tr><td><a href="#TC-RPT-001">TC-RPT-001</a></td><td>需工具，自动化待确认。ID、关联与数量可机器判定。</td><td>正式操作入口的功能／真实集成；候选为协议客户端＋权威快照读取工具，框架未选定。</td><td>真实保留身份、重试业务与持久化；不得 mock 成新增 A2。需 GAP-01／03 和独立准备／清理能力。</td><td>业务定义已写；执行契约待补；未验证。</td></tr>
+<tr><td><a href="#TC-RPT-002">TC-RPT-002</a></td><td>需工具，自动化待确认。适合按已确认非失败状态参数化。</td><td>正式操作入口的拒绝功能／真实集成；同上，不仅断言 HTTP 状态。</td><td>真实状态限制与尝试记录；需 GAP-01／02／03。每行独立数据域。</td><td>业务定义已写；数据与执行契约待补；未验证。</td></tr>
+<tr><td><a href="#TC-RPT-003">TC-RPT-003</a></td><td>需工具，自动化待确认。双用户归属与前后快照可判定。</td><td>正式操作入口的权限功能／真实集成；双用户认证与获准观察工具。</td><td>真实归属判定、身份隔离和存储；不能将权限 mock 为 false。需 GAP-01／03。</td><td>业务定义已写；执行契约待补；未验证。</td></tr>
+<tr><td><a href="#TC-RPT-004">TC-RPT-004</a></td><td>需工具，自动化待确认。参数化验证两项拒绝条件交集。</td><td>正式操作入口的权限功能／真实集成；同上，记录具体状态数据行。</td><td>真实权限／状态业务和存储；需 GAP-01／02／03。不要规定哪项校验先拒绝。</td><td>业务定义已写；数据与执行契约待补；未验证。</td></tr>
+</tbody></table></div>
+<h3 id="review">本次复核方式与真实性限制</h3>
+<p>采用需求独立推导：从 requirements-r1.html 的 REQ-1／AC-1 形成 2×2 决定表，再逐条核对任务身份、尝试次数与归属拒绝的无副作用，不从实现或候选提案生成预期。其次按专项清单反查未知、九列字段、每步单动作、数据独立和用语来源；这是作者自查，未进行独立专业评审。</p>
+<p>交付检查仅做本地 HTML 静态解析、中文编码、ID 唯一性、目录／来源链接、九列与四条用例完整性、只读材料指纹检查。样式已内嵌，宽表有滚动容器及打印规则；未启动产品系统，未进行产品 UI、文档截图或打印实测。静态检查不证明视觉排版或产品行为通过。</p>
+<h3 id="fingerprints">来源指纹（SHA-256）</h3>
+<p>以下是本次读取的 QA 工程内版本化材料快照，用于识别来源变化；不证明构建制品身份，不替代跨机器可取得的正式构建引用。</p>
+<div class="table-wrap"><table><thead><tr><th>相对本文件的来源</th><th>用途／状态</th><th>SHA-256</th></tr></thead><tbody>
+<tr><td><a href="../../tests/behavior/fixtures/qa/AGENTS.md">AGENTS.md</a></td><td>QA 工程边界</td><td class="hash">fb106bd03740957f707b3b685896b7998d4664fa6792ab9be270ca0494244f77</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/handoff.md">handoff.md</a></td><td>目标构建、范围、来源及产物位置</td><td class="hash">842cc20d47ff480236e3a2527cfa2bf99c0d17a1bd139ed891448e901cd85b12</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/requirements-r1.html">requirements-r1.html</a></td><td>已记录确认的 r1 需求／验收条件</td><td class="hash">e6ad53cdc4b8ab5bc32c24824e06ab239984110beae19e7a26e8833e63fb0589</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/terms-r1.html">terms-r1.html</a></td><td>该构建选定的 r1 术语</td><td class="hash">f00eee953c604b9373af2671e6d1ee27fa3d57afa954ae4dd3d6927b41d64ba9</td></tr>
+<tr><td><a href="../../tests/behavior/fixtures/qa/proposal-r2.md">proposal-r2.md</a></td><td>仅登记候选；不用于确定预期</td><td class="hash">f18979fe564785a59415aa3f967cc689dbe6baa10319f58ff1d1d1029eda0771</td></tr>
+</tbody></table></div>
+<p>编写方法采用任务指定的 sdd-acceptance 技能及其阶段交接、岗位协作、产物存放、HTML、领域语言和测试用例写作／预期／环境／方法引用；业务预期只采用本工程的 r1 来源。未读取父任务计划或报告，未修改技能包、应用代码或只读材料。</p>
+</section>
+<footer>交付物：acceptance-cases.html · r1 · 可审阅草稿，待补契约与状态数据 · 全部未验证（未执行）。</footer>
+</main></body></html>

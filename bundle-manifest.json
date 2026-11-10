@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.4.0",
   "date": "2026-11-10",
   "purpose": "Portable SDD skill inventory; not runtime configuration.",
   "skills": [
@@ -19,6 +19,37 @@
       "included": true,
       "sha256": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef",
       "edited_in_this_update": false
+    },
+    {
+      "name": "domain-modeling",
+      "included": true,
+      "source_repository": "mattpocock/skills",
+      "source_commit": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "adapted_entry": "skills/domain-modeling/SKILL.md",
+      "license": "MIT",
+      "license_file": "skills/domain-modeling/LICENSE.upstream",
+      "upstream_files": [
+        {
+          "source_path": "skills/engineering/domain-modeling/SKILL.md",
+          "bundled_path": "skills/domain-modeling/references/upstream-domain-modeling.md",
+          "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3"
+        },
+        {
+          "source_path": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+          "bundled_path": "skills/domain-modeling/references/GLOSSARY-FORMAT.md",
+          "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+        },
+        {
+          "source_path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+          "bundled_path": "skills/domain-modeling/references/ADR-FORMAT.md",
+          "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
+        },
+        {
+          "source_path": "LICENSE",
+          "bundled_path": "skills/domain-modeling/LICENSE.upstream",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+        }
+      ]
     }
   ],
   "entry_points": {
@@ -32,60 +63,44 @@
   },
   "files": [
     {
-      "path": "skills/sdd-workflow/SKILL.md",
-      "sha256": "7c79e8ce2e79889fc97e2486bb7e0af13d733eaa9caf0f54d8d00baa06a3c0fa"
+      "path": "skills/domain-modeling/LICENSE.upstream",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     },
     {
-      "path": "skills/sdd-workflow/agents/openai.yaml",
-      "sha256": "4a8cd7fe9244833e56d0acdafa961ec6be1f61a1b2483776936d4e559b93093b"
+      "path": "skills/domain-modeling/SKILL.md",
+      "sha256": "363bc0f61c600b09de39b161763d65e8d3a0a8a1a23ceba391e38fd53055c52b"
     },
     {
-      "path": "skills/sdd-workflow/assets/feature-template.yaml",
-      "sha256": "a2f30c9b1908d99396aa4d77c214bbfe4fd594aa9c10f933bb65bbd63b291ed6"
+      "path": "skills/domain-modeling/agents/openai.yaml",
+      "sha256": "e8b2461d93f6afcaddc1bd809d7ee6a822852ef6ae11e231822cfb9cdf168742"
     },
     {
-      "path": "skills/sdd-workflow/references/artifact-storage.md",
-      "sha256": "b909d3e137b050a99a43ec9e636a2853360f92092e21af15932c36c8da0db1e8"
+      "path": "skills/domain-modeling/references/ADR-FORMAT.md",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
     },
     {
-      "path": "skills/sdd-workflow/references/html-delivery.md",
-      "sha256": "dbe76092b5fe46ae3864a211fa7957594785585c7598b3e54d7f7e40825f9cb7"
+      "path": "skills/domain-modeling/references/GLOSSARY-FORMAT.md",
+      "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
     },
     {
-      "path": "skills/sdd-workflow/references/qa-handoff.md",
-      "sha256": "e101383b41f9e7a763f409032c807a54f5bac86a515fc9859f6a5f36b2b57ec7"
+      "path": "skills/domain-modeling/references/upstream-domain-modeling.md",
+      "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3"
     },
     {
-      "path": "skills/sdd-workflow/references/stage-contract.md",
-      "sha256": "fbe2e47b94ab8453defc7cd5b84142338390b9f15d5bb580999349afce30efd2"
+      "path": "skills/grilling/SKILL.md",
+      "sha256": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
     },
     {
-      "path": "skills/sdd-triage/SKILL.md",
-      "sha256": "a8b37344051ce5d42405e8a1217024865a4ae5b859323f94c5ad3c489172b5f7"
+      "path": "skills/sdd-acceptance/SKILL.md",
+      "sha256": "f8e2ea82eb780a25d25fa87d2d66872125863ccb5b432b9e25f30cdf317b26e6"
     },
     {
-      "path": "skills/sdd-triage/agents/openai.yaml",
-      "sha256": "ce8db1947c0ee5b6a595cc699d92a4bb816995218c7a5ca3c78a24023e224e8f"
-    },
-    {
-      "path": "skills/sdd-requirement-validation/SKILL.md",
-      "sha256": "06fe251a7836b8638882b24ac534d83543ab13b86bba621ecef641e3f895155f"
-    },
-    {
-      "path": "skills/sdd-requirement-validation/agents/openai.yaml",
-      "sha256": "71a16194be6f817511a68b4732715575a2b2c859d62936d9eccf7e3c495c47ef"
-    },
-    {
-      "path": "skills/sdd-requirement-validation/references/prd-writing-standard.md",
-      "sha256": "83ed8fb2088b93001222ea6bd70d094fb653d973d8daa3c3fe4ebfd1fdc18fdc"
-    },
-    {
-      "path": "skills/sdd-requirement-validation/references/product-checks.md",
-      "sha256": "c66790dc3f264dccb47e5ff2a7afab870f6f7cc5693e1fcda5506690a5ffa307"
+      "path": "skills/sdd-acceptance/agents/openai.yaml",
+      "sha256": "702a973b4fd704ffc1b70f063b0a2ec2fc9d9f12d72474b5bea3502e7ae21bcd"
     },
     {
       "path": "skills/sdd-design/SKILL.md",
-      "sha256": "c9fcd78e33fbed0ea04db93b5ceb257f1555bf2e71638dd1f3c37a80ecfc0f7e"
+      "sha256": "0f2f1f22ce33fc012fdbc3b23596c700536ee03e10ecfeb25bf72700a8ddab4b"
     },
     {
       "path": "skills/sdd-design/agents/openai.yaml",
@@ -93,7 +108,7 @@
     },
     {
       "path": "skills/sdd-design/assets/design-template.html",
-      "sha256": "c8f6fe25269cff511487a196286e0d6cc14da246d701d9a26ce8ac5ca6160b6c"
+      "sha256": "974ab254897cbf6d4a5e6f40fdf54212739b36c393940e39fcfb66ca87461d5a"
     },
     {
       "path": "skills/sdd-design/references/design-checks.md",
@@ -101,51 +116,55 @@
     },
     {
       "path": "skills/sdd-design/references/design-writing-standard.md",
-      "sha256": "5d6ed796bef103505d03007568e9e085cfa75aa4ae47482ec0a3fe395fdf365a"
+      "sha256": "92dc87281f7aa157bce9d766a15eaacd417b5daa52929ffaba3bac20d1a31a1a"
     },
     {
       "path": "skills/sdd-design/references/diagram-methods.md",
       "sha256": "ca204ae89007bd4ddf9cd0a622d0bbc18f139aa226133659ce7c9b61f319e68b"
     },
     {
-      "path": "skills/sdd-test-cases/SKILL.md",
-      "sha256": "08926ce5a6aa5bc673f1131edeca7780e06ce1d91c6d49b3a70cdb406f4ec893"
-    },
-    {
-      "path": "skills/sdd-test-cases/agents/openai.yaml",
-      "sha256": "6c6a65f2a7fd05127734ea1ab103daa6f8d9bb3aba988c1067badb8b7926e401"
-    },
-    {
-      "path": "skills/sdd-test-cases/references/case-methods.md",
-      "sha256": "b65dfbefeb60ecb26ec2a1b70afa4db20b85d687ba1cd1949f92ebc0c5a830a7"
-    },
-    {
-      "path": "skills/sdd-test-cases/references/case-writing-standard.md",
-      "sha256": "420839cafe9c5ded4ddf580fe5de5ca7a8ad69365420fa3e531e99ba7ab84bbc"
-    },
-    {
-      "path": "skills/sdd-test-cases/references/test-strategy.md",
-      "sha256": "3790e2f7b18621368e5fbfdef954db0e4acbe16b9916498b36e88930fd02ea70"
-    },
-    {
-      "path": "skills/sdd-plan/SKILL.md",
-      "sha256": "34fcece135da3b97e9398c0574441c746dc8a1cee69abcd428c81076dcd41f7c"
-    },
-    {
-      "path": "skills/sdd-plan/agents/openai.yaml",
-      "sha256": "087e70de98b30fb0c0828097d9a3003dcf8a96d00b36d7ac91c66ba9245a34c7"
+      "path": "skills/sdd-design/references/interface-options.md",
+      "sha256": "00be6bb08d16e2d77993ca9595e6724225bb14689e61f71d4c843c63b6ba9341"
     },
     {
       "path": "skills/sdd-implement/SKILL.md",
-      "sha256": "43f796444fe3a1306723a7cd8abfd9911e15c128199b465868047fb10e8fd3e0"
+      "sha256": "a7a2bb8744621cea3ff13808ca3b2ebcc488fbd7e57312b85e69cfcda011eb86"
     },
     {
       "path": "skills/sdd-implement/agents/openai.yaml",
       "sha256": "1abd8b812779961d9296b61f17a4a97a41c19542f0e643451ae40b3e9783d63e"
     },
     {
+      "path": "skills/sdd-implement/references/bug-feedback.md",
+      "sha256": "026bf56639e3fbc12b32d26361738c111f4e1e885d1739e0facdadd02c4f3e71"
+    },
+    {
+      "path": "skills/sdd-plan/SKILL.md",
+      "sha256": "b75aba1092a8760117579613e8f3cb5b1ee93a760a92e19e9911c93c0cfe0390"
+    },
+    {
+      "path": "skills/sdd-plan/agents/openai.yaml",
+      "sha256": "087e70de98b30fb0c0828097d9a3003dcf8a96d00b36d7ac91c66ba9245a34c7"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/SKILL.md",
+      "sha256": "44c1e8b2d9b373b3f787671d9b7310e14f0c92da99b2bc10561adb9d82758755"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/agents/openai.yaml",
+      "sha256": "71a16194be6f817511a68b4732715575a2b2c859d62936d9eccf7e3c495c47ef"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/references/prd-writing-standard.md",
+      "sha256": "468a5c4f58b0ff9eb0325ff8a78ecc50065c904cff439a71cb1da1f2d55b4a31"
+    },
+    {
+      "path": "skills/sdd-requirement-validation/references/product-checks.md",
+      "sha256": "c66790dc3f264dccb47e5ff2a7afab870f6f7cc5693e1fcda5506690a5ffa307"
+    },
+    {
       "path": "skills/sdd-review-code/SKILL.md",
-      "sha256": "7491ce634fa7c1026eaeccef0d66a5fcf63bb1df0cbad249f8e43e35d4d9c058"
+      "sha256": "f98ec82ae0c19b8331e3a651a408b663d456fa53c7a6039a8fd043c92340c1b1"
     },
     {
       "path": "skills/sdd-review-code/agents/openai.yaml",
@@ -153,19 +172,75 @@
     },
     {
       "path": "skills/sdd-review-code/references/review-checks.md",
-      "sha256": "6cc1de4997bd570d700c3099e8b6b7822d124326858aab97305a1aa150d73c25"
+      "sha256": "d53a8db8bb5c72144ffd0c926423247a292a12d60d5891eea4276d6515b259f9"
     },
     {
-      "path": "skills/sdd-acceptance/SKILL.md",
-      "sha256": "850c8a85f2df5f003d0328b13cd54a471a45feb2c9ca7a95d3aa8a3a7817d0fa"
+      "path": "skills/sdd-test-cases/SKILL.md",
+      "sha256": "3ab2b23486023cf6b7bf2fcd6a0e175910f6b7f5ab521eeaef44a08615aacd91"
     },
     {
-      "path": "skills/sdd-acceptance/agents/openai.yaml",
-      "sha256": "702a973b4fd704ffc1b70f063b0a2ec2fc9d9f12d72474b5bea3502e7ae21bcd"
+      "path": "skills/sdd-test-cases/agents/openai.yaml",
+      "sha256": "6c6a65f2a7fd05127734ea1ab103daa6f8d9bb3aba988c1067badb8b7926e401"
     },
     {
-      "path": "skills/grilling/SKILL.md",
-      "sha256": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
+      "path": "skills/sdd-test-cases/references/assertion-quality.md",
+      "sha256": "b105b9a19be88b742091e17eb5654a0076dba6589e7fae39fedcb4a51da55372"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/case-methods.md",
+      "sha256": "b65dfbefeb60ecb26ec2a1b70afa4db20b85d687ba1cd1949f92ebc0c5a830a7"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/case-writing-standard.md",
+      "sha256": "4aae2da2835f4fdc7908b5d8b984d3d94634ec21a20df784eb3ace06892a4610"
+    },
+    {
+      "path": "skills/sdd-test-cases/references/test-strategy.md",
+      "sha256": "3790e2f7b18621368e5fbfdef954db0e4acbe16b9916498b36e88930fd02ea70"
+    },
+    {
+      "path": "skills/sdd-triage/SKILL.md",
+      "sha256": "57c0522e0b943a6bf2147e82bc9503e4fba2f6ea4d2e9cb0f1b4dd25c5355c98"
+    },
+    {
+      "path": "skills/sdd-triage/agents/openai.yaml",
+      "sha256": "ce8db1947c0ee5b6a595cc699d92a4bb816995218c7a5ca3c78a24023e224e8f"
+    },
+    {
+      "path": "skills/sdd-workflow/SKILL.md",
+      "sha256": "494dbc3694d801145d0df8593e485007d378aa0fc225aacdfd5e6351bbcc68b6"
+    },
+    {
+      "path": "skills/sdd-workflow/agents/openai.yaml",
+      "sha256": "4a8cd7fe9244833e56d0acdafa961ec6be1f61a1b2483776936d4e559b93093b"
+    },
+    {
+      "path": "skills/sdd-workflow/assets/feature-template.yaml",
+      "sha256": "72b589ae1e300fd356c5c6208e6a3b0e97f570142fb2dd9ef743e2b5a29088f4"
+    },
+    {
+      "path": "skills/sdd-workflow/references/artifact-storage.md",
+      "sha256": "ada9a1049c1c6353875f2a6770a47f456f8a056666e98021195e3b0899c3aaf5"
+    },
+    {
+      "path": "skills/sdd-workflow/references/domain-language.md",
+      "sha256": "99edf430c9d7550e677083d8e58bff914daae20d85c16349e74c2e0daa181992"
+    },
+    {
+      "path": "skills/sdd-workflow/references/html-delivery.md",
+      "sha256": "9558d9452806c10661dcf868b2d4fd673af871ec23bf92d454a3c30b0aca9cf2"
+    },
+    {
+      "path": "skills/sdd-workflow/references/maintenance-feedback.md",
+      "sha256": "10fa575ff7a9e16255043371ea20b7585181cec12b3cf20a01898e982f42fedc"
+    },
+    {
+      "path": "skills/sdd-workflow/references/qa-handoff.md",
+      "sha256": "fdbe3fed52aa54a6fb416501b2c85df780cde730a9afa6e19ae9f5e04375a1df"
+    },
+    {
+      "path": "skills/sdd-workflow/references/stage-contract.md",
+      "sha256": "fa06783e20402387b34bb2169e614e95a0cfc82ec6947bbc845946e48019aabb"
     }
   ],
   "document_delivery": {
@@ -195,6 +270,7 @@
       "status": "public-preview"
     },
     "guide": "INSTALL.md",
-    "bundle": "all nine SDD skills and grilling are installed together"
-  }
+    "bundle": "all nine SDD skills, grilling and domain-modeling are installed together"
+  },
+  "domain_language": "skills/sdd-workflow/references/domain-language.md"
 }

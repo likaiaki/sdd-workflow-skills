@@ -6,6 +6,7 @@ import { cp, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rm, writeFile }
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { proseMarkdown } from './helpers/markdown-links.mjs';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const cli = join(repository, 'node_modules/skills/bin/cli.mjs');
@@ -126,7 +127,7 @@ async function verifySkillRoot(root) {
     const bytes = await readFile(installed);
     assert.equal(sha256(bytes), entry.sha256, `Installed content differs: ${entry.path}`);
     if (!entry.path.endsWith('.md')) continue;
-    for (const match of bytes.toString('utf8').matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
+    for (const match of proseMarkdown(bytes.toString('utf8')).matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
       const target = match[1].split('#')[0];
       if (!target || target.includes('://')) continue;
       assert.ok(await exists(resolve(dirname(installed), decodeURIComponent(target))), `Broken resource reference ${entry.path} -> ${target}`);
@@ -169,7 +170,9 @@ after(async () => {
 
 test('pinned installer discovers all skills and bundled resources', async () => record('discovery', async () => {
   assert.equal(packageInfo.version, '1.7.6');
-  assert.equal(skillNames.length, 10);
+  const actualSkills = (await readdir(join(repository, 'skills'), { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+  assert.deepEqual(skillNames, actualSkills, 'Every bundled skill must be declared and discovered');
   assert.deepEqual(await sourceFiles(join(repository, 'skills')), manifest.files.map((entry) => entry.path).sort(), 'Every source resource must be covered by the installation manifest');
   const setup = await fixture();
   const output = await runCli(setup, ['add', setup.source, '--list']);
