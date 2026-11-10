@@ -1,6 +1,34 @@
 # 验证范围
 
-套件版本为 0.3.0，内容基线日期为 2026-11-06。
+## 0.3.1 命令安装适配
+
+核对日期为 2026-11-10。技能正文、模板和资源沿用 0.3.0 的内容基线，本次增加安装说明与自动化安装检查。
+
+实际执行环境为 macOS、Node.js 26.5.0、npm 11.17.0、`skills@1.7.6`、GitHub CLI 2.98.0。安装器要求 Node.js ≥22.20.0；本次没有另行运行最低 Node 版本。
+
+`npm test` 的 23 项检查全部通过，包含 15 个 Agent 子测试。检查调用真实安装器，从本地源复制到隔离临时工程和模拟用户目录，覆盖以下行为。
+
+| 检查 | 证据范围 |
+| --- | --- |
+| 来源与发现 | 清单与实际 34 个技能文件逐项比对，发现九个 SDD 技能及 `grilling` |
+| 项目安装 | Codex、Claude Code、Cursor、OpenCode、Gemini CLI、GitHub Copilot、Amp、Windsurf、Roo Code、Continue、Kiro CLI、Qoder、Trae、Qwen Code、Kimi Code CLI 的 15 种目录映射 |
+| 用户安装与共存 | 同时指定 15 个 Agent，检查共享副本、独立目录链接、全部资源哈希及相对引用 |
+| 复制 | `--copy` 生成独立目录，修改副本不改变共享原件 |
+| 重装与刷新 | 同名目录中的本地修改和附加文件会被替换；单项刷新可带入新资源，其他技能保持完整 |
+| 移除 | 根据来源锁选择套件，再限定 Agent 移除，保留不同名称的无关技能 |
+| 目录差异 | Cline 的 `skills` CLI 映射只作映射记录；另用 `gh skill install --from-local --all --dir` 验证 `.cline/skills` 和新版 Antigravity 的 `.gemini/config/skills` |
+
+GitHub CLI 会重写 frontmatter 并加入来源元数据，因此对应检查比较技能正文及其他资源，不要求已安装的 `SKILL.md` 整文件哈希与源文件相同。
+
+此外，使用真实 `skills@1.7.6` 从 GitHub 固定提交 `01a8dd4b7c046049902f39ccbd9b4fb9aca217ca` 执行远程安装验证，同时选择 Codex、Claude Code、Cursor。模拟用户目录中十个技能与 34 个源文件的哈希全部吻合。该提交与本次的技能内容相同，安装说明及检查代码在 0.3.1 更新。
+
+本地 `skills` 安装测试保持 `HOME`、`home`、`CODEX_HOME` 原值，通过子进程的 `os.homedir()` 替身及专用临时配置／状态目录隔离安装，写入护栏先自检，遥测关闭。`npm test` 的源文件安装不需要网络，临时安装自动清理；可复跑的结构化报告生成于被 Git 忽略的 `test-results/installation.json`。GitHub CLI 不可用时，其可选检查会明确跳过，本次执行未跳过。
+
+这些检查证明目录安装、资源与相对引用完整，以及已列出的安装器行为。各 Agent 的发现、调用和完整 SDD 运行仍需相应的原生会话证据。命令、范围和已知覆盖行为见 [INSTALL.md](../INSTALL.md)。
+
+## 0.3.0 流程与文档基线
+
+内容基线日期为 2026-11-06。
 
 九个 SDD skill 的结构、YAML 元数据和相对资源引用已检查。原分发包包含 35 个条目，技能与依赖文件共 34 个，文件指纹见根目录 `bundle-manifest.json`。
 

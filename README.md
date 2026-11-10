@@ -1,8 +1,30 @@
 # SDD Workflow Skills
 
-面向 Codex、Claude Code 和 Cursor 的通用 SDD 研发交付技能套件。
+面向主流 Agent 工具的通用 SDD 研发交付技能套件，支持通过命令安装完整技能包。
 
-当前套件版本为 **0.3.0**，操作手册为 **1.1**。它支持新功能、功能扩展和 Bug 分流，覆盖需求验证、技术设计、开发验证、代码审核、提测交接及测试岗位独立验收。
+当前仓库版本为 **0.3.1**，流程手册为 **1.1**。它支持新功能、功能扩展和 Bug 分流，覆盖需求验证、技术设计、开发验证、代码审核、提测交接及测试岗位独立验收。
+
+## 命令安装
+
+使用 Node.js **22.20.0 或更新版本**，通过固定验证版本的 [skills CLI](https://github.com/vercel-labs/skills) 安装。例如，全局安装到 Codex。
+
+```bash
+npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex --global
+```
+
+同时安装到多个工具。
+
+```bash
+npx skills@1.7.6 add likaiaki/sdd-workflow-skills --skill '*' --agent codex claude-code cursor opencode gemini-cli github-copilot --global
+```
+
+在目标项目中省略 `--global` 即为项目安装。Cursor 也支持这条命令安装路径。`--skill '*'` 会带上全部九个 SDD skill 和 `grilling`，使跨技能引用完整。
+
+支持 Codex、Claude Code、Cursor、OpenCode、Gemini CLI、GitHub Copilot、Amp、Windsurf、Roo Code、Continue、Kiro CLI、Qoder、Trae、Qwen Code 和 Kimi Code CLI 的安装目录适配。Cline 与新版 Antigravity 的明确目录安装方式也已提供。
+
+安装会重建所选范围内的同名技能目录，已有本地修改应先备份核对。多个工具共享 `.agents/skills` 时，更新和移除也会影响读取该目录的其他工具。
+
+更多 Agent 标识、GitHub CLI 安装、固定提交、更新和卸载见 [命令安装指南](INSTALL.md)。
 
 ## 流程与岗位
 
@@ -39,18 +61,9 @@ flowchart LR
 
 需求澄清按需引用随套件保留的 [grilling](skills/grilling/SKILL.md)，相关来源记录见 [DEPENDENCIES.md](DEPENDENCIES.md)。
 
-## 安装与使用
+## 使用
 
-下载或克隆仓库后，将 `skills/` 下的九个 `sdd-*` 目录及 `grilling` 目录安装到目标工具的技能目录。也可将技能目录链接到本仓库，统一维护源文件。保留各目录之间的相邻关系，供相对引用解析。
-
-| 工具 | 本套件使用过的个人技能目录 |
-| --- | --- |
-| Codex | `~/.codex/skills/` |
-| Claude Code | `~/.claude/skills/` |
-| Cursor | `~/.cursor/skills/` |
-| 共享发现位置 | `~/.agents/skills/` |
-
-实际目录与技能发现方式以当前宿主配置为准。同名安装项应先核对其来源及内容，再选择复制或链接的位置。将一份完整套件作为维护源，可以减少多个工具分别修改造成的漂移。
+使用命令安装后，在目标工具中选择 `sdd-workflow` 开始研发，或以测试岗位选择 `sdd-acceptance`。实际发现位置和调用方式见安装指南及工具当前配置。
 
 研发任务可以这样描述。
 
@@ -88,4 +101,4 @@ features/v<版本>/<主模块>/<编号>-<特性名>/
 - [技能版本与文件指纹](bundle-manifest.json)。
 - [验证范围](docs/verification.md)。
 
-手册第 14 章保留编写时的个人安装布局。安装本仓库时，以本页说明及当前工具配置解析技能位置。
+手册第 14 章保留流程基线编写时的个人安装布局。当前跨 Agent 命令与目录适配统一维护在 [INSTALL.md](INSTALL.md)。

@@ -1,6 +1,6 @@
 {
-  "version": "0.3.0",
-  "date": "2026-11-06",
+  "version": "0.3.1",
+  "date": "2026-11-10",
   "purpose": "Portable SDD skill inventory; not runtime configuration.",
   "skills": [
     "sdd-workflow",
@@ -181,5 +181,20 @@
   "design_template": "skills/sdd-design/assets/design-template.html",
   "diagram_methods": "skills/sdd-design/references/diagram-methods.md",
   "artifact_storage": "skills/sdd-workflow/references/artifact-storage.md",
-  "feature_registry_template": "skills/sdd-workflow/assets/feature-template.yaml"
+  "feature_registry_template": "skills/sdd-workflow/assets/feature-template.yaml",
+  "command_installation": {
+    "repository": "likaiaki/sdd-workflow-skills",
+    "primary_installer": {
+      "package": "skills",
+      "tested_version": "1.7.6",
+      "node_requirement": ">=22.20.0"
+    },
+    "alternate_installer": {
+      "command": "gh skill install",
+      "tested_version": "2.98.0",
+      "status": "public-preview"
+    },
+    "guide": "INSTALL.md",
+    "bundle": "all nine SDD skills and grilling are installed together"
+  }
 }
