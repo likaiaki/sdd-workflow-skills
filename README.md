@@ -82,9 +82,9 @@ flowchart LR
 ```text
 features/v<版本>/<主模块>/<编号>-<特性名>/
   feature.yaml
-  requirements.html
-  design.html
-  test-cases.html
+  requirements.md
+  design.md
+  test-cases.md
   tasks.md
   state.md
   handoff.md
@@ -92,7 +92,7 @@ features/v<版本>/<主模块>/<编号>-<特性名>/
 
 各阶段共用有效登记与稳定标识。版本未定可归 `_unplanned`，跨模块变更由一个主模块保管并关联受影响模块。现有平铺目录和分散的有效文档可通过登记接续。
 
-正式需求、设计与用例使用 HTML。已交付基线、后续关联变更、现行模块知识和每次运行证据按各自生命周期维护。完整约定与登记模板见 [产物存放规范](skills/sdd-workflow/references/artifact-storage.md) 和 [feature-template.yaml](skills/sdd-workflow/assets/feature-template.yaml)。
+正式需求、设计与用例使用 Markdown。已交付基线、后续关联变更、现行模块知识和每次运行证据按各自生命周期维护。完整约定与登记模板见 [产物存放规范](skills/sdd-workflow/references/artifact-storage.md) 和 [feature-template.yaml](skills/sdd-workflow/assets/feature-template.yaml)。
 
 ## 领域语言与质量闭环
 
@@ -102,9 +102,9 @@ features/v<版本>/<主模块>/<编号>-<特性名>/
 
 ## 手册、模板与版本清单
 
-- [SOP HTML 手册 1.2](docs/sdd-sop-v1.2.html)，下载后在浏览器中打开，可离线阅读。
-- [技术设计 HTML 模板](skills/sdd-design/assets/design-template.html)。
+- [SOP HTML 手册 1.2（历史基线）](docs/sdd-sop-v1.2.html)，下载后在浏览器中打开，可离线阅读。
+- [技术设计 Markdown 模板](skills/sdd-design/assets/design-template.md)，沿用 [HTML 模板](skills/sdd-design/assets/design-template.html) 的章节与内容结构。
 - [技能版本与文件指纹](bundle-manifest.json)。
 - [验证范围](docs/verification.md)。
 
-当前跨 Agent 命令与目录适配统一维护在 [INSTALL.md](INSTALL.md)。旧版手册保留历史基线，实际使用以 1.2 和当前技能为准。
+当前跨 Agent 命令与目录适配统一维护在 [INSTALL.md](INSTALL.md)。旧版手册保留历史基线，实际使用以当前技能为准，文档产物现统一保存为 `.md`。
